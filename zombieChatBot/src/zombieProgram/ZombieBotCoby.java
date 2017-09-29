@@ -8,10 +8,10 @@ public class ZombieBotCoby implements Topic {
 	private boolean chatting;
 	
 	public ZombieBotCoby() {
-		String[] temp = {"food","entertainment","Internet","videogames"};
+		String[] temp = {"social life","hobbies","Internet","videogames"};
 		keywords = temp;
 		goodbyeWord = "bye";
-		secretWord = "pug";
+		secretWord = "brains";
 	}
 	
 	@Override
