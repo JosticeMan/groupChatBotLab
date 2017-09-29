@@ -3,7 +3,7 @@ package zombieProgram;
 import java.util.Scanner;
 
 //Zombie is the main bot's identity 
-//Topics: Food(Brains)/Past Life/Small talk/
+//Topics: Food(Justin Yau)/Past Life (Zhehao lin)/Small talk (Coby)/Zombie Jokes (Sunny Kwong)
 
 public class ZombieBotMain {
 
