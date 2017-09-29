@@ -9,13 +9,12 @@ public class ZombieBotSunny implements Topic {
 	
 	public ZombieBotSunny()
 	{
-		String[] temp = {"food", "entertainment", "internet", "video games"};
+		String[] temp = {"food", "life", "jokes", "talk"};
 		keywords = temp;
 		goodbyeWord = "bye";
-		secretWord = "sandwich";
+		secretWord = "brains";
 	}
 
-	@Override
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++)
 		{
@@ -27,7 +26,6 @@ public class ZombieBotSunny implements Topic {
 		return false;
 	}
 
-	@Override
 	public void startChatting(String response) 
 	{
 		ZombieBotMain.print("Hey! It sounds like you and I have a common interest! Let's talk some more!");
@@ -42,7 +40,7 @@ public class ZombieBotSunny implements Topic {
 			}
 			else if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0)
 			{
-				ZombieBotMain.print("Oh my goodness! You guessed my favorite thing ever. We are friends now.");
+				ZombieBotMain.print("Urrrrh! You like brains too?");
 			}
 			else
 			{
