@@ -2,6 +2,8 @@ package zombieProgram;
 
 public class ZombieBotJustinY implements Topic {
 
+	//This class is to be only changed by JUSTIN YAU
+	//This section will manage the talks about food. 
 	
 	private String[] keywords; 
 	private String goodbyeWord;
