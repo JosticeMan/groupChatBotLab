@@ -3,12 +3,15 @@ package zombieProgram;
 public class ZombieBot {
 
 	private String userName;
-	private Topic justin;
+	private Topic zombieFood;
+	private Topic pastLife;
+	private Topic smallTalk;
+	private Topic zombieJokes;
 	private boolean chatting;
 	
 	public ZombieBot()
 	{
-		justin = new ZombieBotJustinY();
+		zombieFood = new ZombieBotJustinY();
 		userName = "unknownUser";
 		chatting = true;
 	}
@@ -23,10 +26,10 @@ public class ZombieBot {
 		{
 			ZombieBotMain.print("What do you want to talk about?");
 			String response = ZombieBotMain.getInput();
-			if(justin.isTriggered(response))
+			if(zombieFood.isTriggered(response))
 			{
 				chatting = false;
-				justin.startChatting(response);
+				zombieFood.startChatting(response);
 			}
 			else
 			{
