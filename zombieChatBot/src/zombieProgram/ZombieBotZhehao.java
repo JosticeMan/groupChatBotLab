@@ -2,7 +2,7 @@ package zombieProgram;
 
 //hi
 
-public class ZombieBotZhehao {
+public class ZombieBotZhehao implements Topic {
 	private String[] keywords; 
 	private String goodbyeWords;
 	private String secretWord;
@@ -26,7 +26,7 @@ public class ZombieBotZhehao {
 		return false;
 	}
 
-	public void StartChatting(String response) {
+	public void startChatting(String response) {
 		ZombieBotMain.print("Hey! we have common interest!Let's talk");
 		chatting = true;
 		while(chatting)
