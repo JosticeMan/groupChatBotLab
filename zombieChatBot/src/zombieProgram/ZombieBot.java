@@ -8,19 +8,22 @@ public class ZombieBot {
 	private Topic smallTalk;
 	private Topic zombieJokes;
 	private boolean chatting;
-	
+
 	public ZombieBot()
 	{
 		zombieFood = new ZombieBotJustinY();
+		pastLife = new ZombieBotZhehao();
+		smallTalk = new ZombieBotCoby();
+		zombieJokes = new ZombieBotSunny();
 		userName = "unknownUser";
 		chatting = true;
 	}
-	
+
 	public void startTalking() {
-		
+
 		ZombieBotMain.print("Welcome to our chatBot! What is your name?");
 		userName = ZombieBotMain.getInput();
-		
+
 		chatting = true;
 		while(chatting)
 		{
@@ -31,12 +34,30 @@ public class ZombieBot {
 				chatting = false;
 				zombieFood.startChatting(response);
 			}
+			else if(pastLife.isTriggered(response))
+			{
+				chatting = false;
+				pastLife.startChatting(response);
+			}
+			else if(smallTalk.isTriggered(response))
+			{
+				chatting = false;
+				smallTalk.startChatting(response);
+			}
+			else if(zombieJokes.isTriggered(response))
+			{
+				chatting = false;
+				zombieJokes.startChatting(response);
+			}
 			else
 			{
-				ZombieBotMain.print("I'm sorry, I don't understand");
+				ZombieBotMain.print("Urr? Derr? No understurr. Try ager.");
 			}
 		}
-		
+
+
+
+
 	}
 
 }
