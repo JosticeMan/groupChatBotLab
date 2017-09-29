@@ -45,21 +45,18 @@ public class ZombieBotJustinY implements Topic {
 				chatting = false;
 				ZombieBotMain.chatbot.startTalking();
 			}
-			else 
+			else if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0)
 			{
-				if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0)
-				{
-					ZombieBotMain.print("Oh my goodness! You guessed my favorite thing ever. We are friends now.");
-				}
-				else
-				{
-					ZombieBotMain.print("Huh. I don't really get you. Tell me something else?");
-				}
+				ZombieBotMain.print("Oh my goodness! You guessed my favorite thing ever. We are friends now.");
 			}
-			
+			else
+			{
+				ZombieBotMain.print("Huh. I don't really get you. Tell me something else?");
+			}
 		}
-		
+			
 	}
-	
+		
 }
+	
 	
