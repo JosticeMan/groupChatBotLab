@@ -1,6 +1,6 @@
 package zombieProgram;
 
-//hi
+
 
 public class ZombieBotZhehao implements Topic {
 	private String[] keywords; 
@@ -10,7 +10,7 @@ public class ZombieBotZhehao implements Topic {
 	
 	public ZombieBotZhehao()
 	{
-		String[] temp = {"food","life","school"};
+		String[] temp = {"past","life",""};
 		keywords = temp;
 		goodbyeWords = "bye";
 		secretWord = "pubg";
