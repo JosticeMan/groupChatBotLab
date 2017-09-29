@@ -21,13 +21,13 @@ public class ZombieBot {
 
 	public void startTalking() {
 
-		ZombieBotMain.print("Welcome to our chatBot! What is your name?");
+		ZombieBotMain.print("Hellur! I ar Carl.. you?");
 		userName = ZombieBotMain.getInput();
 
 		chatting = true;
 		while(chatting)
 		{
-			ZombieBotMain.print("What do you want to talk about?");
+			ZombieBotMain.print("Zer.. Wha yu want?");
 			String response = ZombieBotMain.getInput();
 			if(zombieFood.isTriggered(response))
 			{
