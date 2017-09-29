@@ -55,24 +55,20 @@ public class ZombieBotMain {
 			{
 				return true;
 			}
+			else if(pos == 0) 
+			{
+				return s.substring(pos + keyword.length(), pos + (keyword.length() + 1)).compareTo("a") < 0;
+			}
+			else if(pos == (s.length() - keyword.length()))
+			{
+				return s.substring(pos - 1, pos).compareTo("a") < 0;
+			}
 			else
 			{
-				if(pos == 0) {
-					return s.substring(pos + keyword.length(), pos + (keyword.length() + 1)).compareTo("a") < 0;
-				}
-				else
-				{
-					if(pos == (s.length() - keyword.length()))
-					{
-						return s.substring(pos - 1, pos).compareTo("a") < 0;
-					}
-					else
-					{
-						return s.substring(pos + keyword.length(), pos + (keyword.length() + 1)).compareTo("a") < 0 && s.substring(pos - 1, pos).compareTo("a") < 0;
-					}
-				}
+				return s.substring(pos + keyword.length(), pos + (keyword.length() + 1)).compareTo("a") < 0 && s.substring(pos - 1, pos).compareTo("a") < 0;
 			}
-	  }
+	}
+ 
 	  
 	public static boolean noNegations(String s, int pos) {
 			
