@@ -18,6 +18,11 @@ public class ZombieBotJustinY implements Topic {
 	private String[] goodbyeWords;
 	private String[] goodbyePhrases;
 	
+	private String[] fquestionTriggers;
+	private String preferenceAnswer;
+	private String[] nfquestionTriggers;
+	private String[] negPreferenceAnswer;
+	
 	private String favoriteWord;
 	private String[] favoritePhrases;
 	
@@ -36,6 +41,14 @@ public class ZombieBotJustinY implements Topic {
 		favoriteWord = "Brain";
 		String[] favoriteTemp = {"BRAINNZ! Le me eat yo brainz!! I WAN BRAINZZ!!!", "I very liek you! BRAINZZ!"};
 		favoritePhrases = favoriteTemp;
+		
+		String[] ftriggerTemp = {"like?", "prefer?", "choose?"};
+		fquestionTriggers = ftriggerTemp;
+		preferenceAnswer = "Onlyeh Brainz!";
+		String[] nftriggerTemp = {"no like?", "no prefer?", "not choose?", "not like?", "no prefer?", "not choose?"};
+		nfquestionTriggers = nftriggerTemp;
+		String[] negTemp = {"I no like everryythin but BRAINZ!", "Hmm no liek this and this and tha. I luv brainz!"};
+		negPreferenceAnswer = negTemp;
 		
 		angryMeter = 0;
 		previousResponse = "";
@@ -57,21 +70,21 @@ public class ZombieBotJustinY implements Topic {
 		
 	}
 	
-	public boolean containsString(String input, String[] arr) {
+	public String containsString(String input, String[] arr) {
 		
 		for(int i = 0; i < arr.length; i++)
 		{
 			if(ZombieBotMain.findKeyword(input, arr[i], 0) >= 0)
 			{
-				return true;
+				return arr[i];
 			}
 		}
-		return false;
+		return "";
 	}
 	
 	public void randomText(String[] arr) {
 		
-		ZombieBotMain.print(arr[(int) (Math.random() * arr.length)]);
+		ZombieBotMain.print(arr[((int) (Math.random() * arr.length))]);
 		
 	}
 	
@@ -100,18 +113,27 @@ public class ZombieBotJustinY implements Topic {
 			else
 			{
 				angryMeter = 0;
+				previousResponse = response;
 			}
 			
 			if(angryMeter > 0)
 			{
-				ZombieBotMain.print(annoyedText[angryMeter]);
+				ZombieBotMain.print(annoyedText[angryMeter - 1]);
 				if(angryMeter == 3)
 				{
 					chatting = false;
 					ZombieBotMain.chatbot.startTalking();
 				}
 			}
-			else if(containsString(response, goodbyeWords))
+			else if(containsString(response, fquestionTriggers) != "")
+			{
+				ZombieBotMain.print(preferenceAnswer);
+			}
+			else if(containsString(response, nfquestionTriggers) != "")
+			{
+				randomText(negPreferenceAnswer);
+			}
+			else if(containsString(response, goodbyeWords) != "")
 			{
 				randomText(goodbyePhrases);
 				chatting = false;
