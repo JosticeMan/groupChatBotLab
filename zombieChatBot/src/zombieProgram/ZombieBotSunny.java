@@ -73,7 +73,7 @@ public class ZombieBotSunny implements Topic {
 			}
 			else if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0)
 			{
-				ZombieBotMain.print("Urrrrh! You like grains too?");
+				ZombieBotMain.print("Urrrrh! You like grains too?"); 
 			}
 			else if(kkJoke)
 			{
