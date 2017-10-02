@@ -60,7 +60,7 @@ public class ZombieBotSunny implements Topic {
 			if(Math.random() > 0.5)
 			{
 				kkJoke = true;
-			}
+			} 
 			else 
 			{
 				kkJoke = false;
