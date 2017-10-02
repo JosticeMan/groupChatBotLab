@@ -11,7 +11,7 @@ public class ZombieBotCoby implements Topic {
 		String[] temp = {"social life","hobbies","person","people","games","technology"};
 		keywords = temp;
 		String[] gameChoice = {"rock","paper","scissors"};
-		String goodbyeWord = "bye";
+		String goodbyeWord= "bye";
 		secretWord = "the walking dead";
 	}
 	
