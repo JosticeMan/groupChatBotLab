@@ -46,9 +46,9 @@ public class ZombieBotSunny implements Topic {
 
 	public void startChatting(String response) 
 	{
-		if(ZombieBotMain.findKeyword(response, secretWord, 0))
+		if(ZombieBotMain.findKeyword(response, secretWord, 0) > -1)
 		{
-			
+			ZombieBotMain.print("Errhh! You like grains too? Urh!");
 		}
 		else 
 		{
