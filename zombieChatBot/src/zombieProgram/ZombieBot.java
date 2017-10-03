@@ -54,10 +54,58 @@ public class ZombieBot {
 				ZombieBotMain.print("Urr? Derr? No understurr. Try ager.");
 			}
 		}
-
-
-
-
 	}
-
+	
+	/**
+	 * Function returns whether or not the user's input triggers another topic. 
+	 * @param response - User's input to what the bot said.  
+	 * @param trigger - Number between 1-4 corresponding to the topics defined above.  
+	 * @return - A boolean, whether or not the topic (trigger) relates to the response. 
+	 */
+	public boolean differentTalkTrigger(String response, int trigger)
+	{
+		if(trigger == 1)
+		{
+			return zombieFood.isTriggered(response);
+		}
+		else if(trigger == 2)
+		{
+			return pastLife.isTriggered(response);
+		}
+		else if(trigger == 3)
+		{
+			return smallTalk.isTriggered(response);
+		}
+		else if(trigger == 4)
+		{
+			return zombieJokes.isTriggered(response);
+		}
+		return false;
+	}
+	
+	/** 
+	 * Function allows other classes to call this function and access a different topic
+	 * @param response - User input to a previous query 
+	 * @param topicNum - Number between 1-4 corresponding to the topics defined above.  
+	 */
+	public void switchTopic(String response, int topicNum)
+	{
+		if(topicNum == 1)
+		{
+			zombieFood.startChatting(response);
+		}
+		else if(topicNum == 2)
+		{
+			pastLife.startChatting(response);
+		}
+		else if(topicNum == 3)
+		{
+			smallTalk.startChatting(response);
+		}
+		else if(topicNum == 4)
+		{
+			zombieJokes.startChatting(response);
+		}
+	}
+	
 }
