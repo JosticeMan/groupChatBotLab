@@ -70,7 +70,15 @@ public class ZombieBotMain {
 						index++;
 					}
 				}
-				if(Character.isLetter(response.charAt(response.length() - 1)))
+				
+				//If index is greater than response, there was no punctuation after the keyword and only chars
+				//I like
+				//I like food
+				if(i + keyboard.length() > response.length())
+				{
+					return "";
+				}
+				else if(Character.isLetter(response.charAt(response.length() - 1)))
 				{
 					return response.substring(index, response.length());
 				}
