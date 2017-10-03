@@ -44,8 +44,6 @@ public class ZombieBotJustinY implements Topic {
 	
 	public ZombieBotJustinY() {
 		
-		userName = ZombieBotMain.chatbot.getUsername();
-		
 		String[] temp = {"Brains", "Food", "Comida"};
 		keywords = temp;
 		
