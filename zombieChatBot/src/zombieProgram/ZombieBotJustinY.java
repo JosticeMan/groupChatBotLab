@@ -48,9 +48,14 @@ public class ZombieBotJustinY implements Topic {
 	private String[] favoriteTrigger;
 	
 	private String[] gameTrigger;
+	private String[] gameWelcome;
+	private String[] winMsg;
 	private String[] gameQuestions;
 	private String[] gameAnswers;
 	private String[] gameExit;
+	private int gameScore;
+	private int questionNum;
+	private boolean gamePlayed;
 	
 	private boolean chatting;
 	private boolean gaming;
@@ -99,11 +104,20 @@ public class ZombieBotJustinY implements Topic {
 		String[] favoriteTriggerTemp = {"I like", "I prefer", "I love", "I desire", "I want"};
 		favoriteFoodTrigger = favoriteTriggerTemp;
 		
+		String[] gametTemp = {"I want to play a game", "play game", "game", "entertainment", "trivia", "quiz", "play"};
+		gameTrigger = gametTemp;
+		String[] exitTemp = {"no", "I don't", "nope", "na", "stop", "leave", "exit", "I'm good"};
+		gameExit = exitTemp;
+		String[] gQuestTemp = {"Wha is squishy, pink, and loook like clump of intestines!?", "Wha e airy and yu have 2 of!?", "What e red and shape like heart?"};
+		gameQuestions = gQuestTemp;
+		String[] gAnswerTemp = {"BRAIN", "LUNG", "HEART"};
+		gameAnswers = gAnswerTemp;
+		gamePlayed = false;
+		
 		angryMeter = 0;
 		previousResponse = "";
 		String[] textTemp = {"Why yo say sam thing!? I doon't like!", "Raghh...  dis makes me angry!", "No want tooo taallk!"};
 		annoyedText = textTemp;
-		
 	}
 	
 	public boolean isTriggered(String response) {
@@ -129,6 +143,15 @@ public class ZombieBotJustinY implements Topic {
 		if(ZombieBotMain.findKeyword(response, "Comida", 0) >= 0)
 		{
 			ZombieBotMain.print("Argh! No gusta spanish! Gustarrgh food!");
+		}
+		else if(response.equalsIgnoreCase("cameFromGame"))
+		{
+			ZombieBotMain.print("Gooood one! " + userName + ", bac talk abou food now!");
+		}
+		else if(response.equalsIgnoreCase("leftGame"))
+		{
+			ZombieBotMain.print("You no fun! Arghh! Talk foo again! LIKE BRAINZ OR NO BRAINZ?");
+			likeBrainz = true;
 		}
 		else
 		{
@@ -157,6 +180,18 @@ public class ZombieBotJustinY implements Topic {
 				{
 					chatting = false;
 					ZombieBotMain.chatbot.startTalking();
+				}
+			}
+			else if(ZombieBotMain.containsString(response, gameTrigger) != "")
+			{
+				if(gamePlayed)
+				{
+					ZombieBotMain.print("Yo already playz the game! Talk food!");
+				}
+				else
+				{
+					chatting = false;
+					startGaming(ZombieBotMain.containsString(response, gameTrigger));
 				}
 			}
 			else if(favoriteQuestion)
@@ -221,7 +256,7 @@ public class ZombieBotJustinY implements Topic {
 					}
 					else
 					{
-						ZombieBotMain.print("Arguhh? Whatch saay? BRAINZ OR NO BRAINZ!?");
+						ZombieBotMain.print("Arguhh? Whatch saay? LIKE BRAINZ OR NO BRAINZ!?");
 						likeBrainz = true;
 					}
 				}
@@ -336,12 +371,90 @@ public class ZombieBotJustinY implements Topic {
 			
 	}
 		
-	public void startGaming()
+	public void startGaming(String response)
 	{
+		angryMeter = 0;
+		gamePlayed = true;
 		gaming = true;
+		gameScore = 0;
+		questionNum = -1;
+		String[] welcomeTemp = {"UGHAL! Welcomez " + userName + " to a little foo game! Yo wan play?", "Let's plaay foo trivia!"};
+		gameWelcome = welcomeTemp;
+		
+		if(response == "entertainment")
+		{
+			ZombieBotMain.print("You wan entertainment? Here's enterrrtaunment!");
+		}
+		else 
+		{
+			ZombieBotMain.randomText(gameWelcome);
+		}
+		
 		while(gaming)
 		{
+			response = ZombieBotMain.getInput();
+			if(response.equalsIgnoreCase(previousResponse))
+			{
+				angryMeter++;
+				previousResponse = response;
+			}
+			else
+			{
+				angryMeter = 0;
+				previousResponse = response;
+			}
 			
+			if(angryMeter > 0)
+			{
+				ZombieBotMain.print(annoyedText[angryMeter - 1]);
+				if(angryMeter == 3)
+				{
+					gaming = false;
+					ZombieBotMain.chatbot.startTalking();
+				}
+			}
+			else if(questionNum != -1)
+			{
+				if(ZombieBotMain.findKeyword(response, gameAnswers[questionNum], 0) >= 0)
+				{
+					String[] winTemp = {"ARghuhhu! Correct! Ansu was " + gameAnswers[questionNum] + "Z!", " Ding dinng! Correctughh!", " Yo very goo at this! Riggh answer!"};
+					winMsg = winTemp;
+					ZombieBotMain.randomText(winMsg);
+					questionNum++;
+					gameScore++;
+					if(questionNum == gameQuestions.length)
+					{
+						ZombieBotMain.print("Graat! You beat teh game! BRAAIN for you!");
+						gaming = false;
+						startChatting("cameFromGame");
+					}
+					else
+					{
+						ZombieBotMain.print(gameQuestions[questionNum]);
+					}
+				}
+				else
+				{
+					ZombieBotMain.print("Mistak! Tra again! " + gameQuestions[questionNum]);
+				}
+			}
+			else if(ZombieBotMain.containsString(response, gameExit) != "")
+			{
+				gaming = false;
+				ZombieBotMain.print("Awwrgh! Fine I stoop the game! You haz " + gameScore + " points from Game!");
+				startChatting("leftGame");
+			}
+			else if(ZombieBotMain.containsString(response, goodbyeWords) != "")
+			{
+				gaming = false;
+				ZombieBotMain.randomText(goodbyePhrases);
+				ZombieBotMain.chatbot.startTalking();
+			}
+			else
+			{
+				questionNum = 0;
+				ZombieBotMain.print(gameQuestions[questionNum]);
+			}
 		}
 	}
 }
