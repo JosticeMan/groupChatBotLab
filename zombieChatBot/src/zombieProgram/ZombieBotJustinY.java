@@ -33,6 +33,9 @@ public class ZombieBotJustinY implements Topic {
 	
 	private String[] randomQuestions;
 	
+	private String userFavoriteFood;
+	private String[] favoriteFoodTrigger;
+	
 	private boolean chatting;
 	
 	public ZombieBotJustinY() {
@@ -59,6 +62,9 @@ public class ZombieBotJustinY implements Topic {
 		
 		String[] questionTemp = {"Yer wan talk abou zomthing else?", "Wha do yoou like food?", "Yoou likee brainz too!?", "How fressh ugh yo brainz?"};
 		randomQuestions = questionTemp;
+		
+		String[] favoriteTriggerTemp = {"I like ", "I prefer ", "I love ", "I desire ", "I want "};
+		favoriteFoodTrigger = favoriteTriggerTemp;
 		
 		angryMeter = 0;
 		previousResponse = "";
