@@ -74,7 +74,7 @@ public class ZombieBotMain {
 				//If index is greater than response, there was no punctuation after the keyword and only chars
 				//I like
 				//I like food
-				if(i + keyboard.length() > response.length())
+				if(i + keyword.length() >= response.length())
 				{
 					return "";
 				}
@@ -90,7 +90,6 @@ public class ZombieBotMain {
 		}
 		return "";
 	}
-	
 	
 	private static Scanner inputSource = new Scanner(System.in);
 	  
