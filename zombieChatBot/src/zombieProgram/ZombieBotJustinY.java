@@ -33,6 +33,9 @@ public class ZombieBotJustinY implements Topic {
 	
 	private String[] randomQuestions;
 	
+	private String userName; 
+	private String[] pronouns; 
+	
 	private String userFavoriteFood;
 	private String[] favoriteFoodTrigger;
 	
@@ -63,8 +66,13 @@ public class ZombieBotJustinY implements Topic {
 		String[] questionTemp = {"Yer wan talk abou zomthing else?", "Wha do yoou like food?", "Yoou likee brainz too!?", "How fressh ugh yo brainz?"};
 		randomQuestions = questionTemp;
 		
+		String[] proTemp = {"you", "him", "her"};
+		pronouns = proTemp;
+		
 		String[] favoriteTriggerTemp = {"I like ", "I prefer ", "I love ", "I desire ", "I want "};
 		favoriteFoodTrigger = favoriteTriggerTemp;
+		
+		userName = ZombieBotMain.chatbot.getUsername();
 		
 		angryMeter = 0;
 		previousResponse = "";
@@ -84,6 +92,18 @@ public class ZombieBotJustinY implements Topic {
 		}
 		return false;
 		
+	}
+	
+	public String wordAfter(String response, String keyword)
+	{
+		for(int i = 0; i < response.length() - (keyword.length() - 1); i++)
+		{
+			if(response.substring(i, response.length()).equalsIgnoreCase(keyword))
+			{
+				return "";
+			}
+		}
+		return "";
 	}
 	
 	public void startChatting(String response) {
@@ -122,6 +142,10 @@ public class ZombieBotJustinY implements Topic {
 					chatting = false;
 					ZombieBotMain.chatbot.startTalking();
 				}
+			}
+			else if(ZombieBotMain.containsString(response, favoriteFoodTrigger) != "")
+			{
+				
 			}
 			else if(ZombieBotMain.containsString(response, fquestionTriggers) != "")
 			{
