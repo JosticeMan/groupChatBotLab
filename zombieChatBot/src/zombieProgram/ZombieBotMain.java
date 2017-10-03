@@ -49,6 +49,41 @@ public class ZombieBotMain {
 		
 	}
 	
+	/**
+	 * Returns the phrase after the given keyword in the response.
+	 */
+	public static String wordAfter(String response, String keyword)
+	{
+		for(int i = 0; i < response.length() - (keyword.length() - 1); i++)
+		{
+			if(response.substring(i, i + keyword.length()).equalsIgnoreCase(keyword))
+			{
+				boolean isFound = false;
+				int index = i + keyword.length();
+				while(!isFound && index < response.length())
+				{
+					if(Character.isLetter(response.charAt(index))) {
+						isFound = true;
+					}
+					else
+					{
+						index++;
+					}
+				}
+				if(Character.isLetter(response.charAt(response.length() - 1)))
+				{
+					return response.substring(index, response.length());
+				}
+				else
+				{
+					return response.substring(index, response.length() - 1);
+				}
+			}
+		}
+		return "";
+	}
+	
+	
 	private static Scanner inputSource = new Scanner(System.in);
 	  
 	  /**Returns index of the keyword in the search string after startPosition where keyword is isolated and has no negations. 

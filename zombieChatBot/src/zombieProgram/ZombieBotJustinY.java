@@ -5,7 +5,6 @@ public class ZombieBotJustinY implements Topic {
 	//This class is to be only changed by JUSTIN YAU
 	//This section will manage the talks about food. 
 	
-	//SAVE USER FAVORITE FOOD AND REFERENCE LATER ON
 	//Respond uniquely to last 2 random questions
 	//Perhaps implement a food game?
 	//AFTER: WORK WITH GROUP TO CONNECT MESSAGES SO IT ISN'T SO OBVIOUS THAT THE ZOMBIE PERSONALITY CHANGED WHEN TOPIC SWAPPED.
@@ -18,7 +17,6 @@ public class ZombieBotJustinY implements Topic {
 	private String[] annoyedText;
 	
 	//private String userName;
-	private int emotionalMeter; 
 	
 	private String[] goodbyeWords;
 	private String[] goodbyePhrases;
@@ -40,6 +38,12 @@ public class ZombieBotJustinY implements Topic {
 	private String[] favoriteFoodTrigger;
 	private String[] fPhrase;
 	
+	private boolean freshQuestion;
+	private String[] freshTrigger;
+	
+	private boolean likeBrainz;
+	private String[] brainTrigger;
+	
 	private boolean chatting;
 	
 	public ZombieBotJustinY() {
@@ -56,24 +60,31 @@ public class ZombieBotJustinY implements Topic {
 		String[] favoriteTemp = {"BRAINNZ! Le me eat yo brainz!! I WAN BRAINZZ!!!", "I very liek you! BRAINZZ!"};
 		favoritePhrases = favoriteTemp;
 		
-		String[] ftriggerTemp = {"like?", "prefer?", "choose?"};
+		String[] ftriggerTemp = {"like", "prefer", "choose"};
 		fquestionTriggers = ftriggerTemp;
+		
 		preferenceAnswer = "Onlyeh Brainz!";
 		String[] nftriggerTemp = {"no like?", "no prefer?", "not choose?", "not like?", "no prefer?", "not choose?"};
 		nfquestionTriggers = nftriggerTemp;
 		String[] negTemp = {"I no like everryythin but BRAINZ! Maybeh other orgaunz aswell.", "Hmm no liek this and this and tha. I luv brainz!"};
 		negPreferenceAnswer = negTemp;
 		
-		String[] questionTemp = {"Yer wan talk abou zomthing else?", "Wha do yoou like food?", "Yoou likee brainz too!?", "How fressh ugh yo brainz?"};
+		String[] questionTemp = {"Yer wan talk abou zomthing else?", "Wha foo do yoou like?", "Yoou likee brainz too!?", "Is yo brainz ugh fressh?"};
 		randomQuestions = questionTemp;
+	
+		String[] freshTemp = {"yes", "no", "maybe"};
+		freshTrigger = freshTemp;
+		freshQuestion = false;
 		
-		String[] proTemp = {"you", "him", "her"};
+		String[] brainTemp = {"no", "yes", "I do", "I don't", "maybe", "Aye", "Ew"};
+		brainTrigger = brainTemp;
+		likeBrainz = false;
+		
+		String[] proTemp = {"you", "him", "her", "me", "myself"};
 		pronouns = proTemp;
 		
-		String[] favoriteTriggerTemp = {"I like ", "I prefer ", "I love ", "I desire ", "I want "};
+		String[] favoriteTriggerTemp = {"I like", "I prefer", "I love", "I desire", "I want"};
 		favoriteFoodTrigger = favoriteTriggerTemp;
-		String[] ftemp = {userName + ", are you sure you like?", "Ahhah! " + userName + " like othe peeps! I onleh liek thez brainz!"};
-		fPhrase = ftemp;
 		
 		angryMeter = 0;
 		previousResponse = "";
@@ -95,40 +106,12 @@ public class ZombieBotJustinY implements Topic {
 		
 	}
 	
-	public String wordAfter(String response, String keyword)
-	{
-		for(int i = 0; i < response.length() - (keyword.length() - 1); i++)
-		{
-			if(response.substring(i, response.length()).equalsIgnoreCase(keyword))
-			{
-				boolean isFound = false;
-				int index = i + keyword.length();
-				while(!isFound)
-				{
-					if(Character.isLetter(response.charAt(index))) {
-						isFound = true;
-					}
-					else
-					{
-						index++;
-					}
-				}
-				if(Character.isLetter(response.charAt(response.length() - 1)))
-				{
-					return response.substring(index, response.length() - 1);
-				}
-				else
-				{
-					return response.substring(index, response.length());
-				}
-			}
-		}
-		return "";
-	}
-	
 	public void startChatting(String response) {
 		
 		angryMeter = 0;
+		userName = ZombieBotMain.chatbot.getUsername();
+		String[] ftemp = {userName + ", are youuu sure you like?", "Ahhah! " + userName + " like othe peeps! I onleh liek thez brainz!"};
+		fPhrase = ftemp;
 		
 		if(ZombieBotMain.findKeyword(response, "Comida", 0) >= 0)
 		{
@@ -163,30 +146,108 @@ public class ZombieBotJustinY implements Topic {
 					ZombieBotMain.chatbot.startTalking();
 				}
 			}
-			else if(ZombieBotMain.containsString(response, favoriteFoodTrigger) != "")
+			else if(freshQuestion)
 			{
-				String responsePronoun = ZombieBotMain.containsString( wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger)), pronouns);
-				if(responsePronoun != "")
+				freshQuestion = false;
+				String elResponse = ZombieBotMain.containsString(response, freshTrigger);
+				if(elResponse.equalsIgnoreCase("yes"))
 				{
-					ZombieBotMain.randomText(fPhrase);
-					if(responsePronoun.equalsIgnoreCase("you"))
+					ZombieBotMain.print("Oohoho! Temppting to eat " + userName);
+				}
+				else if(elResponse.equalsIgnoreCase("no"))
+				{
+					ZombieBotMain.print("Bleh! No wantt eat yo brainz!");
+				}
+				else if(elResponse.equalsIgnoreCase("maybe"))
+				{
+					ZombieBotMain.print("Shoul I hallp yoou find out!?");
+				}
+				else
+				{
+					ZombieBotMain.print("Arguhh? Whatcha sayy?");
+					freshQuestion = true;
+				}
+			}
+			else if(likeBrainz)
+			{
+				likeBrainz = false;
+				String elResponse = ZombieBotMain.containsString(response, brainTrigger);
+				if(elResponse.equalsIgnoreCase("yes") || elResponse.equalsIgnoreCase("I do"))
+				{
+					ZombieBotMain.print("Alas! I foun anooother buing tha like BRAINZ! I loove you, " + userName);
+				}
+				else if(elResponse.equalsIgnoreCase("maybe"))
+				{
+					ZombieBotMain.print("Yooou! Mee no happy!");
+				}
+				else
+				{
+					if(elResponse.equalsIgnoreCase("I don't") || elResponse.equalsIgnoreCase("no"))
 					{
-						userFavoriteFood = "yourself";
+						ZombieBotMain.print("Cme her! I eatt you!");
 					}
 					else
 					{
-						userFavoriteFood = "other people";
+						ZombieBotMain.print("Arguhh? Whatch saay?");
+						likeBrainz = true;
+					}
+				}
+			}
+			else if(ZombieBotMain.containsString(response, favoriteFoodTrigger) != "")
+			{
+				String responsePronoun = ZombieBotMain.containsString(ZombieBotMain.wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger)), pronouns);
+				if(responsePronoun != "")
+				{
+					if(responsePronoun.equalsIgnoreCase("you"))
+					{
+						userFavoriteFood = "me";
+						ZombieBotMain.print("Ughleo! I thin " + userName + " lov me!");
+					}
+					else if(responsePronoun.equalsIgnoreCase("me") || responsePronoun.equalsIgnoreCase("myself"))
+					{
+						userFavoriteFood = "themseulves";
+						ZombieBotMain.print(fPhrase[0]);
+					}
+					else
+					{
+						ZombieBotMain.randomText(fPhrase);
+						userFavoriteFood = "otherr poople";
 					}
 				}
 				else
 				{
-					userFavoriteFood = wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger)); 
-					ZombieBotMain.print("I no like yooou like " + userFavoriteFood + " ! ONlYBRAINZ!");
+					userFavoriteFood = ZombieBotMain.wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger)); 
+					if(userFavoriteFood == "")
+					{
+						ZombieBotMain.print("Arghuh?");
+					}
+					else if(Math.random()  < .50)
+					{
+						ZombieBotMain.print("I no like yooou like " + userFavoriteFood + "! ONlYBRAINZ!");
+					}
+					else
+					{
+						ZombieBotMain.print("Aghhh mind hurts! Only want BRAINZ! No " + userFavoriteFood + ".");
+					}
 				}
 			}
 			else if(ZombieBotMain.containsString(response, fquestionTriggers) != "")
 			{
-				ZombieBotMain.print(preferenceAnswer);
+				if(userFavoriteFood != "" && userFavoriteFood != null)
+				{
+					if(Math.random() < .50)
+					{
+						ZombieBotMain.print("I know " + userName + " likes " + userFavoriteFood + " but I ONLEY APPROV BRAINZ!!");
+					}
+					else
+					{
+						ZombieBotMain.print(preferenceAnswer);
+					}
+				}
+				else
+				{
+					ZombieBotMain.print(preferenceAnswer);
+				}
 			}
 			else if(ZombieBotMain.containsString(response, nfquestionTriggers) != "")
 			{
@@ -217,9 +278,18 @@ public class ZombieBotJustinY implements Topic {
 				chatting = false;
 				ZombieBotMain.chatbot.switchTopic(response, 4);
 			}
-			else if(Math.random() > .24)
+			else if(Math.random() < 0.75)
 			{
-				ZombieBotMain.randomText(randomQuestions);
+				int rando = (int) (Math.random() * randomQuestions.length);
+				if(rando == 2)
+				{
+					likeBrainz = true;
+				}
+				else if(rando == 3)
+				{
+					freshQuestion = true;
+				}
+				ZombieBotMain.print(randomQuestions[rando]);
 			}
 			else
 			{
