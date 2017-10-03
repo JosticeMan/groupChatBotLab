@@ -5,6 +5,11 @@ public class ZombieBotJustinY implements Topic {
 	//This class is to be only changed by JUSTIN YAU
 	//This section will manage the talks about food. 
 	
+	//SAVE USER FAVORITE FOOD AND REFERENCE LATER ON
+	//Respond uniquely to last 2 random questions
+	//Perhaps implement a food game?
+	//AFTER: WORK WITH GROUP TO CONNECT MESSAGES SO IT ISN'T SO OBVIOUS THAT THE ZOMBIE PERSONALITY CHANGED WHEN TOPIC SWAPPED.
+	
 	private String[] keywords; 
 	
 	//Makes the bot get increasingly annoyed over the same consecutive responses. 
@@ -25,6 +30,8 @@ public class ZombieBotJustinY implements Topic {
 	
 	private String favoriteWord;
 	private String[] favoritePhrases;
+	
+	private String[] randomQuestions;
 	
 	private boolean chatting;
 	
@@ -47,12 +54,15 @@ public class ZombieBotJustinY implements Topic {
 		preferenceAnswer = "Onlyeh Brainz!";
 		String[] nftriggerTemp = {"no like?", "no prefer?", "not choose?", "not like?", "no prefer?", "not choose?"};
 		nfquestionTriggers = nftriggerTemp;
-		String[] negTemp = {"I no like everryythin but BRAINZ!", "Hmm no liek this and this and tha. I luv brainz!"};
+		String[] negTemp = {"I no like everryythin but BRAINZ! Maybeh other orgaunz aswell.", "Hmm no liek this and this and tha. I luv brainz!"};
 		negPreferenceAnswer = negTemp;
+		
+		String[] questionTemp = {"Yer wan talk abou zomthing else?", "Wha do yoou like food?", "Yoou likee brainz too!?", "How fressh ugh yo brainz?"};
+		randomQuestions = questionTemp;
 		
 		angryMeter = 0;
 		previousResponse = "";
-		String[] textTemp = {"Why yo say sam thing!? I doon't like!", "Raghh...  dis makes me angry!", "No want tooo taallk! Bai!"};
+		String[] textTemp = {"Why yo say sam thing!? I doon't like!", "Raghh...  dis makes me angry!", "No want tooo taallk!"};
 		annoyedText = textTemp;
 		
 	}
@@ -139,6 +149,10 @@ public class ZombieBotJustinY implements Topic {
 			{
 				chatting = false;
 				ZombieBotMain.chatbot.switchTopic(response, 4);
+			}
+			else if(Math.random() > .24)
+			{
+				ZombieBotMain.randomText(randomQuestions);
 			}
 			else
 			{

@@ -56,6 +56,11 @@ public class ZombieBot {
 		}
 	}
 	
+	public String getUsername()
+	{
+		return userName;
+	}
+	
 	/**
 	 * Function returns whether or not the user's input triggers another topic. 
 	 * @param response - User's input to what the bot said.  
