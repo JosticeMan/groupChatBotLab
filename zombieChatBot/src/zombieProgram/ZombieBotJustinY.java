@@ -125,6 +125,21 @@ public class ZombieBotJustinY implements Topic {
 			{
 				ZombieBotMain.randomText(favoritePhrases);
 			}
+			else if(ZombieBotMain.chatbot.differentTalkTrigger(response, 2))
+			{
+				chatting = false;
+				ZombieBotMain.chatbot.switchTopic(response, 2);
+			}
+			else if(ZombieBotMain.chatbot.differentTalkTrigger(response, 3))
+			{
+				chatting = false;
+				ZombieBotMain.chatbot.switchTopic(response, 3);
+			}
+			else if(ZombieBotMain.chatbot.differentTalkTrigger(response, 4))
+			{
+				chatting = false;
+				ZombieBotMain.chatbot.switchTopic(response, 4);
+			}
 			else
 			{
 				ZombieBotMain.print("Arguhh? Whatch saay?");
