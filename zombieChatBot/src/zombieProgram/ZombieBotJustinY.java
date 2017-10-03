@@ -90,7 +90,7 @@ public class ZombieBotJustinY implements Topic {
 		freshTrigger = freshTemp;
 		freshQuestion = false;
 		
-		String[] brainTemp = {"no", "yes", "I do", "I don't", "maybe", "Aye", "Ew"};
+		String[] brainTemp = {"no", "yes", "I do", "I don't", "maybe", "Aye", "Ew", "Brain", "No Brain"};
 		brainTrigger = brainTemp;
 		likeBrainz = false;
 		
@@ -240,7 +240,7 @@ public class ZombieBotJustinY implements Topic {
 			{
 				likeBrainz = false;
 				String elResponse = ZombieBotMain.containsString(response, brainTrigger);
-				if(elResponse.equalsIgnoreCase("yes") || elResponse.equalsIgnoreCase("I do"))
+				if(elResponse.equalsIgnoreCase("yes") || elResponse.equalsIgnoreCase("I do") || elResponse.equalsIgnoreCase("Brain"))
 				{
 					ZombieBotMain.print("Alas! I foun anooother buing tha like BRAINZ! I loove you, " + userName);
 				}
@@ -250,7 +250,7 @@ public class ZombieBotJustinY implements Topic {
 				}
 				else
 				{
-					if(elResponse.equalsIgnoreCase("I don't") || elResponse.equalsIgnoreCase("no"))
+					if(elResponse.equalsIgnoreCase("I don't") || elResponse.equalsIgnoreCase("no") || elResponse.equalsIgnoreCase("No Brain"))
 					{
 						ZombieBotMain.print("Cme her! I eatt you!");
 					}
@@ -413,11 +413,23 @@ public class ZombieBotJustinY implements Topic {
 					ZombieBotMain.chatbot.startTalking();
 				}
 			}
+			else if(ZombieBotMain.containsString(response, gameExit) != "")
+			{
+				gaming = false;
+				ZombieBotMain.print("Awwrgh! Fine I stoop the game! You haz " + gameScore + " points from Game!");
+				startChatting("leftGame");
+			}
+			else if(ZombieBotMain.containsString(response, goodbyeWords) != "")
+			{
+				gaming = false;
+				ZombieBotMain.randomText(goodbyePhrases);
+				ZombieBotMain.chatbot.startTalking();
+			}
 			else if(questionNum != -1)
 			{
 				if(ZombieBotMain.findKeyword(response, gameAnswers[questionNum], 0) >= 0)
 				{
-					String[] winTemp = {"ARghuhhu! Correct! Ansu was " + gameAnswers[questionNum] + "Z!", " Ding dinng! Correctughh!", " Yo very goo at this! Riggh answer!"};
+					String[] winTemp = {"ARghuhhu! Correct! Ansu was " + gameAnswers[questionNum] + "Z!", "Ding dinng! Correctughh!", " Yo very goo at this! Riggh answer!"};
 					winMsg = winTemp;
 					ZombieBotMain.randomText(winMsg);
 					questionNum++;
@@ -437,18 +449,6 @@ public class ZombieBotJustinY implements Topic {
 				{
 					ZombieBotMain.print("Mistak! Tra again! " + gameQuestions[questionNum]);
 				}
-			}
-			else if(ZombieBotMain.containsString(response, gameExit) != "")
-			{
-				gaming = false;
-				ZombieBotMain.print("Awwrgh! Fine I stoop the game! You haz " + gameScore + " points from Game!");
-				startChatting("leftGame");
-			}
-			else if(ZombieBotMain.containsString(response, goodbyeWords) != "")
-			{
-				gaming = false;
-				ZombieBotMain.randomText(goodbyePhrases);
-				ZombieBotMain.chatbot.startTalking();
 			}
 			else
 			{
