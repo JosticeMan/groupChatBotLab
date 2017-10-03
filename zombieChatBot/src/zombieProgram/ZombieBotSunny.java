@@ -5,33 +5,23 @@ public class ZombieBotSunny implements Topic {
 	private String[] keywords;
 	private String goodbyeWord;
 	private String secretWord;
-	private String[] kkJokes;
-	private String[] rJokes;
-	private String[] kkJokesAnswers;
-	private String[] rJokesAnswers;
+	private String[] Jokes;
+	private String[] JokesAnswers;
 	private boolean chatting;
-	private boolean kkJoke;
 	
 	public ZombieBotSunny()
 	{
 		String[] temp = {"joke", "jokes", "funny", "puns"};
 		keywords = temp;
 		
-		String[] kkTemp = {"orange", "zombie"};
-		kkJokes = kkTemp;
-		
-		String[] kkTempAns = {"orange you glad i didn't say zombie?", "Braaaaains!!"};
-		kkJokesAnswers = kkTempAns;
-		
 		String[] rTemp = {"What kind of candy do zombies refuse to eat?", "Where do zombies go swimming?", "What does it take to become a zombie?"};
-		rJokes = rTemp;
+		Jokes = rTemp;
 		
 		String[] rTempAns = {"Life Savers!", "The Dead Sea!", "Deadication!"};
-		rJokesAnswers = rTempAns;
+		JokesAnswers = rTempAns;
 		
 		goodbyeWord = "bye";
 		secretWord = "grains";
-		kkJoke = true;
 	}
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++)
@@ -43,6 +33,23 @@ public class ZombieBotSunny implements Topic {
 		}
 		return false;
 	}
+	public void tellJoke(int stage, String userInput)
+	{
+		int randomInt = (int) Math.floor(Math.random()*Jokes.length);
+		boolean possibilities = (userInput.toLowerCase() == "what?" || userInput.toLowerCase() == "what" ||userInput.toLowerCase() == "where?" || userInput.toLowerCase() == "where");
+		if(stage == 0)
+		{
+			ZombieBotMain.print(Jokes[randomInt]);
+		}
+		else if(stage == 1 && possibilities)
+		{
+			ZombieBotMain.print(JokesAnswers[randomInt]);
+		}
+		else if(!possibilities && stage == 2)
+		{
+			ZombieBotMain.print("Urrrrh! You ruined thurr joke!");
+		}
+	}
 
 	public void startChatting(String response) 
 	{
@@ -52,19 +59,11 @@ public class ZombieBotSunny implements Topic {
 		}
 		else 
 		{
-			ZombieBotMain.print("Urrh... You want to... erh... hear a joke?");
+			ZombieBotMain.print("Urrh... I will tell... erh... joke.");
 		}
 		chatting = true;
 		while(chatting)
 		{
-			if(Math.random() > 0.5)
-			{
-				kkJoke = true;
-			} 
-			else 
-			{
-				kkJoke = false;
-			}
 			response = ZombieBotMain.getInput();
 			if(ZombieBotMain.findKeyword(response, goodbyeWord, 0) >= 0)
 			{
@@ -75,31 +74,22 @@ public class ZombieBotSunny implements Topic {
 			{
 				ZombieBotMain.print("Urrrrh! You like grains too?"); 
 			}
-			else if(kkJoke)
+			else
 			{
-				double currentJokeIndex = Math.floor(Math.random()*kkJokes.length);
-				ZombieBotMain.print("...Knock knock errh!");
-				if(response.toLowerCase() == "who's there?" || response.toLowerCase() == "whos there?")
+				int stageNum = 0;
+				while(stageNum < 2)
 				{
-					ZombieBotMain.print(kkJokes[(int) currentJokeIndex]);
-					if(response.toLowerCase() == kkJokesAnswers[(int) currentJokeIndex] + " who?")
-					{
-						ZombieBotMain.print(kkJokesAnswers[(int) currentJokeIndex]);
-					}
+					tellJoke(stageNum, response);
+					stageNum += 1;
 				}
-				else
-				{
-					ZombieBotMain.print("Errrh! You ruin thurrh joke!");
-				}	
 			}
-			else if(!kkJoke)
-			{
-				
-			}
+			
+			/*
 			else
 			{
 				ZombieBotMain.print("Huh. I don't really get you. Tell me something else?");
 			}
+			*/
 			
 		}
 	}
