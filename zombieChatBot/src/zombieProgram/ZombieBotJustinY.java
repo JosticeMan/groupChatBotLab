@@ -38,10 +38,13 @@ public class ZombieBotJustinY implements Topic {
 	
 	private String userFavoriteFood;
 	private String[] favoriteFoodTrigger;
+	private String[] fPhrase;
 	
 	private boolean chatting;
 	
 	public ZombieBotJustinY() {
+		
+		userName = ZombieBotMain.chatbot.getUsername();
 		
 		String[] temp = {"Brains", "Food", "Comida"};
 		keywords = temp;
@@ -71,8 +74,8 @@ public class ZombieBotJustinY implements Topic {
 		
 		String[] favoriteTriggerTemp = {"I like ", "I prefer ", "I love ", "I desire ", "I want "};
 		favoriteFoodTrigger = favoriteTriggerTemp;
-		
-		userName = ZombieBotMain.chatbot.getUsername();
+		String[] ftemp = {userName + ", are you sure you like?", "Ahhah! " + userName + " like othe peeps! I onleh liek thez brainz!"};
+		fPhrase = ftemp;
 		
 		angryMeter = 0;
 		previousResponse = "";
@@ -100,7 +103,26 @@ public class ZombieBotJustinY implements Topic {
 		{
 			if(response.substring(i, response.length()).equalsIgnoreCase(keyword))
 			{
-				return "";
+				boolean isFound = false;
+				int index = i + keyword.length();
+				while(!isFound)
+				{
+					if(Character.isLetter(response.charAt(index))) {
+						isFound = true;
+					}
+					else
+					{
+						index++;
+					}
+				}
+				if(Character.isLetter(response.charAt(response.length() - 1)))
+				{
+					return response.substring(index, response.length() - 1);
+				}
+				else
+				{
+					return response.substring(index, response.length());
+				}
 			}
 		}
 		return "";
@@ -145,7 +167,24 @@ public class ZombieBotJustinY implements Topic {
 			}
 			else if(ZombieBotMain.containsString(response, favoriteFoodTrigger) != "")
 			{
-				
+				String responsePronoun = ZombieBotMain.containsString( wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger)), pronouns);
+				if(responsePronoun != "")
+				{
+					ZombieBotMain.randomText(fPhrase);
+					if(responsePronoun.equalsIgnoreCase("you"))
+					{
+						userFavoriteFood = "yourself";
+					}
+					else
+					{
+						userFavoriteFood = "other people";
+					}
+				}
+				else
+				{
+					userFavoriteFood = wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger)); 
+					ZombieBotMain.print("I no like yooou like " + userFavoriteFood + " ! ONlYBRAINZ!");
+				}
 			}
 			else if(ZombieBotMain.containsString(response, fquestionTriggers) != "")
 			{
