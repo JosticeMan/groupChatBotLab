@@ -21,6 +21,34 @@ public class ZombieBotMain {
 
 	}
 
+	/** 
+	 * Looks through the string for any string mentioned in the array
+	 * @param input - The phrase that you want to input
+	 * @param arr - The array of strings you want to search for
+	 * @return - Returns the first string that is found within the input
+	 */
+	public static String containsString(String input, String[] arr) {
+		
+		for(int i = 0; i < arr.length; i++)
+		{
+			if(findKeyword(input, arr[i], 0) >= 0)
+			{
+				return arr[i];
+			}
+		}
+		return "";
+	}
+	
+	/**
+	 * Chooses & prints a random phrase from a String Array
+	 * @param arr - String Array that contains random phrases
+	 */
+	public static void randomText(String[] arr) {
+		
+		print(arr[((int) (Math.random() * arr.length))]);
+		
+	}
+	
 	private static Scanner inputSource = new Scanner(System.in);
 	  
 	  /**Returns index of the keyword in the search string after startPosition where keyword is isolated and has no negations. 

@@ -70,24 +70,6 @@ public class ZombieBotJustinY implements Topic {
 		
 	}
 	
-	public String containsString(String input, String[] arr) {
-		
-		for(int i = 0; i < arr.length; i++)
-		{
-			if(ZombieBotMain.findKeyword(input, arr[i], 0) >= 0)
-			{
-				return arr[i];
-			}
-		}
-		return "";
-	}
-	
-	public void randomText(String[] arr) {
-		
-		ZombieBotMain.print(arr[((int) (Math.random() * arr.length))]);
-		
-	}
-	
 	public void startChatting(String response) {
 		
 		angryMeter = 0;
@@ -125,23 +107,23 @@ public class ZombieBotJustinY implements Topic {
 					ZombieBotMain.chatbot.startTalking();
 				}
 			}
-			else if(containsString(response, fquestionTriggers) != "")
+			else if(ZombieBotMain.containsString(response, fquestionTriggers) != "")
 			{
 				ZombieBotMain.print(preferenceAnswer);
 			}
-			else if(containsString(response, nfquestionTriggers) != "")
+			else if(ZombieBotMain.containsString(response, nfquestionTriggers) != "")
 			{
-				randomText(negPreferenceAnswer);
+				ZombieBotMain.randomText(negPreferenceAnswer);
 			}
-			else if(containsString(response, goodbyeWords) != "")
+			else if(ZombieBotMain.containsString(response, goodbyeWords) != "")
 			{
-				randomText(goodbyePhrases);
+				ZombieBotMain.randomText(goodbyePhrases);
 				chatting = false;
 				ZombieBotMain.chatbot.startTalking();
 			}
 			else if(ZombieBotMain.findKeyword(response, favoriteWord, 0) >= 0)
 			{
-				randomText(favoritePhrases);
+				ZombieBotMain.randomText(favoritePhrases);
 			}
 			else
 			{
