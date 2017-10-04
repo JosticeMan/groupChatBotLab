@@ -74,7 +74,7 @@ public class ZombieBotMain {
 				//If index is greater than response, there was no punctuation after the keyword and only chars
 				//I like 
 				//I like food
-				if(i + keyword.length() >= response.length() || !(Character.isLetter(response.charAt(response.length() - 1))))
+				if(i + keyword.length() >= response.length() || (i + keyword.length() == response.length() - 3))
 				{
 					return "";
 				}
