@@ -33,19 +33,18 @@ public class ZombieBotSunny implements Topic {
 		}
 		return false;
 	}
-	public void tellJoke(int stage, String userInput)
+	public void tellJoke(int stage, String userInput, int randomNum)
 	{
-		int randomInt = (int) Math.floor(Math.random()*Jokes.length);
-		boolean possibilities = (userInput.toLowerCase() == "what?" || userInput.toLowerCase() == "what" ||userInput.toLowerCase() == "where?" || userInput.toLowerCase() == "where");
+		boolean possibilities = (userInput.equalsIgnoreCase("what?") || userInput.equalsIgnoreCase("what") ||userInput.equalsIgnoreCase("where?") || userInput.equalsIgnoreCase("where"));
 		if(stage == 0)
 		{
-			ZombieBotMain.print(Jokes[randomInt]);
+			ZombieBotMain.print(Jokes[randomNum]);
 		}
 		else if(stage == 1 && possibilities)
 		{
-			ZombieBotMain.print(JokesAnswers[randomInt]);
+			ZombieBotMain.print(JokesAnswers[randomNum]);
 		}
-		else if(!possibilities && stage == 2)
+		else if(!possibilities && stage == 1)
 		{
 			ZombieBotMain.print("Urrrrh! You ruined thurr joke!");
 		}
@@ -62,6 +61,8 @@ public class ZombieBotSunny implements Topic {
 			ZombieBotMain.print("Urrh... I will tell... erh... joke.");
 		}
 		chatting = true;
+		int stageNum = 0;
+		int randomInt = (int) Math.floor(Math.random()*Jokes.length);
 		while(chatting)
 		{
 			response = ZombieBotMain.getInput();
@@ -76,21 +77,20 @@ public class ZombieBotSunny implements Topic {
 			}
 			else
 			{
-				int stageNum = 0;
-				while(stageNum < 2)
+				tellJoke(stageNum, response, randomInt);
+				stageNum += 1;
+				if(stageNum == 2)
 				{
-					tellJoke(stageNum, response);
-					stageNum += 1;
+					stageNum = 0;
 				}
+				
 			}
-			
 			/*
 			else
 			{
 				ZombieBotMain.print("Huh. I don't really get you. Tell me something else?");
 			}
 			*/
-			
 		}
 	}
 }
