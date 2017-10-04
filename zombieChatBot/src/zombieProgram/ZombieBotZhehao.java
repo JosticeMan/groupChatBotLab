@@ -10,15 +10,15 @@ public class ZombieBotZhehao implements Topic {
 	private String[] angryresponse;
 	private String[] happyresponse;
 	private String[] asktostop;
-	private String previousinput;
 	private String secretWord;
+	private int trackingnumber=0;
 	private boolean chatting;
 	private String emotion="happy";
 	private int angercount=0;
 	
 	public ZombieBotZhehao()
 	{
-		String[] tempKeywords = {"past life","memory","alive"};
+		String[] tempKeywords = {"pastlife","memory","alive","jesus"};
 		keywords= tempKeywords;
 		String[] tempgoodbyeWords = {"bye","Goodbye","See you later","adios"};
 		keywords= tempgoodbyeWords;
@@ -28,7 +28,9 @@ public class ZombieBotZhehao implements Topic {
 		angerkeywords= tempangerkeywords;
 		String[] tempangryresponse = {"ERR.... I'm not goin tWo tel u I like dancing.","School? YoU mEaN PrIsOn?","Derr..I m no telling u.DO TE mATH! 9*8-56+4*3.",
 				"  "};
-		angryresponse = tempangerkeywords;
+		angryresponse = tempangryresponse;
+		String[] temphappyresponse = {"I love dansing! Derr.. I like vido game! ","ERRRR! I hate school! I know nothing, teacher bad!","Err I thnk I m 420 yers oldd."};
+		happyresponse= temphappyresponse;
 		String[] tempasktostop= {"That is not nice!Don't said that!","IM GETTING MAD!","YOU BETTER SAID SORRY!"};
 		asktostop = tempasktostop;
 		secretWord = "Dora";
@@ -69,27 +71,31 @@ public class ZombieBotZhehao implements Topic {
 			ZombieBotMain.print("ERRRRRRRRRR! That is it! I'm going to eat your brain!");
 		}
 	}
-	public String checkallkeywords(String searchstring, String[] arr)
-	{
-		if(arr == goodbyeWords)
-		{
-			for(int i = 0; i<goodbyeWords.length;i++)
-			{
-				ZombieBotMain.findKeyword(searchstring, goodbyeWords[i], 0);
-			}
-		}
-		
-	}
 	
-	public String answerresponse()
+	public void answerresponse(String response)
 	{
 		if(emotion=="happy")
 		{
-			
+			for(int i=0;i<talkingpoint.length;i++)
+			{
+				if(ZombieBotMain.findKeyword(response, talkingpoint[i], 0)>=0)
+				{
+					trackingnumber = i;
+				}
+			}
+			ZombieBotMain.print(happyresponse[trackingnumber]);
 			
 		}
 		else
 		{
+			for(int i=0;i<talkingpoint.length;i++)
+			{
+				if(ZombieBotMain.findKeyword(response, talkingpoint[i], 0)>=0)
+				{
+					trackingnumber = i;
+				}
+			}
+			ZombieBotMain.print(angryresponse[trackingnumber]);
 			
 		}
 			
@@ -113,10 +119,8 @@ public class ZombieBotZhehao implements Topic {
 			if (ZombieBotMain.findKeyword(response, secretWord, 0)>=0) {
 				ZombieBotMain.print("ERRR! DERRRRRRR! Me love Doraaaaa! DERRR! You can be me new bes friend!");
 				angercount=0;
-			}else {
-				
-				
 			}
+			answerresponse(response);
 		}
 	}
 
