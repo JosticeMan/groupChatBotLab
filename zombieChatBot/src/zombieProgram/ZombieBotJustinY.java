@@ -49,11 +49,11 @@ public class ZombieBotJustinY implements Topic {
 	
 	private String[] gameTrigger;
 	private String[] gameWelcome;
-	private String[] winMsg;
 	private String[] gameQuestions;
-	private String[] gameAnswers;
+	private String[][] gameAnswers;
 	private String[] gameExit;
 	private int gameScore;
+	private int retries;
 	private int questionNum;
 	private boolean gamePlayed;
 	
@@ -110,12 +110,11 @@ public class ZombieBotJustinY implements Topic {
 		gameExit = exitTemp;
 		String[] gQuestTemp = {"Wha is squishy, pink, and loook like clump of intestines!?", "Wha e airy and yu have 2 of!?", "What e red and shape like heart?"};
 		gameQuestions = gQuestTemp;
-		String[] gAnswerTemp = {"BRAIN", "LUNG", "HEART"};
+		String[][] gAnswerTemp = {{"BRAIN", "BRAINS", "BRAINZZ", "BRAINZZZ"}, {"LUNG", "LUNGS", "LUNGZ", "LUNGZZ", "LUNGZZ"}, {"HEART", "HEARTS", "HEARTZZ", "HEARTZZZ"}};
 		gameAnswers = gAnswerTemp;
 		gamePlayed = false;
 		
 		angryMeter = 0;
-		previousResponse = "";
 		String[] textTemp = {"Why yo say sam thing!? I doon't like!", "Raghh...  dis makes me angry!", "No want tooo taallk!"};
 		annoyedText = textTemp;
 	}
@@ -146,7 +145,7 @@ public class ZombieBotJustinY implements Topic {
 		}
 		else if(response.equalsIgnoreCase("cameFromGame"))
 		{
-			ZombieBotMain.print("Gooood one! " + userName + ", bac talk abou food now!");
+			ZombieBotMain.print("Gooood game! " + userName + ", bac talk abou food now!");
 		}
 		else if(response.equalsIgnoreCase("leftGame"))
 		{
@@ -181,6 +180,10 @@ public class ZombieBotJustinY implements Topic {
 					chatting = false;
 					ZombieBotMain.chatbot.startTalking();
 				}
+			}
+			else if(response.equalsIgnoreCase(""))
+			{
+				ZombieBotMain.print("Suy somethang I am givin up on you!");
 			}
 			else if(ZombieBotMain.containsString(response, gameTrigger) != "")
 			{
@@ -248,17 +251,14 @@ public class ZombieBotJustinY implements Topic {
 				{
 					ZombieBotMain.print("Yooou! Mee no happy!");
 				}
+				else if(elResponse.equalsIgnoreCase("I don't") || elResponse.equalsIgnoreCase("no") || elResponse.equalsIgnoreCase("No Brain"))
+				{
+					ZombieBotMain.print("Cme her! I eatt you!");
+				}
 				else
 				{
-					if(elResponse.equalsIgnoreCase("I don't") || elResponse.equalsIgnoreCase("no") || elResponse.equalsIgnoreCase("No Brain"))
-					{
-						ZombieBotMain.print("Cme her! I eatt you!");
-					}
-					else
-					{
-						ZombieBotMain.print("Arguhh? Whatch saay? LIKE BRAINZ OR NO BRAINZ!?");
-						likeBrainz = true;
-					}
+					ZombieBotMain.print("Arguhh? Whatch saay? LIKE BRAINZ OR NO BRAINZ!?");
+					likeBrainz = true;
 				}
 			}
 			else if(ZombieBotMain.containsString(response, favoriteFoodTrigger) != "")
@@ -285,17 +285,14 @@ public class ZombieBotJustinY implements Topic {
 				else
 				{
 					userFavoriteFood = ZombieBotMain.wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger)); 
+					String[] fOTemp = {"I no like yooou like " + userFavoriteFood + "! ONlYBRAINZ!", "Aghhh mind hurts! Only want BRAINZ! No " + userFavoriteFood + ".", userFavoriteFood + "!?? Hao irritatting!"};
 					if(userFavoriteFood == "")
 					{
 						ZombieBotMain.print("Arghuh?");
 					}
-					else if(Math.random()  < .50)
+					else 
 					{
-						ZombieBotMain.print("I no like yooou like " + userFavoriteFood + "! ONlYBRAINZ!");
-					}
-					else
-					{
-						ZombieBotMain.print("Aghhh mind hurts! Only want BRAINZ! No " + userFavoriteFood + ".");
+						ZombieBotMain.randomText(fOTemp);
 					}
 				}
 			}
@@ -303,14 +300,8 @@ public class ZombieBotJustinY implements Topic {
 			{
 				if(userFavoriteFood != "" && userFavoriteFood != null)
 				{
-					if(Math.random() < .50)
-					{
-						ZombieBotMain.print("I know " + userName + " likes " + userFavoriteFood + " but I ONLEY APPROV BRAINZ!!");
-					}
-					else
-					{
-						ZombieBotMain.print(preferenceAnswer);
-					}
+					String[] rTemp = {"I know " + userName + " likes " + userFavoriteFood + " but I ONLEY APPROV BRAINZ!!", preferenceAnswer};
+					ZombieBotMain.randomText(rTemp);
 				}
 				else
 				{
@@ -380,6 +371,7 @@ public class ZombieBotJustinY implements Topic {
 		questionNum = -1;
 		String[] welcomeTemp = {"UGHAL! Welcomez " + userName + " to a little foo game! Yo wan play?", "Let's plaay foo trivia!"};
 		gameWelcome = welcomeTemp;
+		retries = 0;
 		
 		if(response == "entertainment")
 		{
@@ -427,11 +419,10 @@ public class ZombieBotJustinY implements Topic {
 			}
 			else if(questionNum != -1)
 			{
-				if(ZombieBotMain.findKeyword(response, gameAnswers[questionNum], 0) >= 0)
+				if(ZombieBotMain.containsString(response, gameAnswers[questionNum]) != "")
 				{
 					String[] winTemp = {"ARghuhhu! Correct! Ansu was " + gameAnswers[questionNum] + "Z!", "Ding dinng! Correctughh!", " Yo very goo at this! Riggh answer!"};
-					winMsg = winTemp;
-					ZombieBotMain.randomText(winMsg);
+					ZombieBotMain.randomText(winTemp);
 					questionNum++;
 					gameScore++;
 					if(questionNum == gameQuestions.length)
@@ -447,7 +438,17 @@ public class ZombieBotJustinY implements Topic {
 				}
 				else
 				{
-					ZombieBotMain.print("Mistak! Tra again! " + gameQuestions[questionNum]);
+					if(retries == 3)
+					{
+						ZombieBotMain.print("Losseeer! No moar guesses! Yo had " + gameScore + " points!");
+						gaming = false;
+						startChatting("cameFromGame");
+					}
+					else
+					{
+						ZombieBotMain.print("Mistak! Tra again! " + gameQuestions[questionNum]);
+						retries++;
+					}
 				}
 			}
 			else
