@@ -8,6 +8,10 @@ public class ZombieBotSunny implements Topic {
 	private String[] Jokes;
 	private String[] JokesAnswers;
 	private String[] possibleResponses;
+	
+	private String[] kkJokes;
+	private String[] kkJokesAnswers;
+	
 	private boolean chatting;
 	private int patience;
 	
@@ -24,6 +28,12 @@ public class ZombieBotSunny implements Topic {
 		
 		String[] tempResp = {"what?", "what", "where", "where?"};
 		possibleResponses = tempResp;
+		
+		String[] kkTemp = {"orange", "zombie"};
+		kkJokes = kkTemp;
+		
+		String[] kkTempAns = {"Orange you glad I didn't say zombie?", "ZomBEE queen here to eat you!"};
+		kkJokesAnswers = kkTempAns;
 		
 		patience = 5;
 		goodbyeWord = "bye";
@@ -75,6 +85,14 @@ public class ZombieBotSunny implements Topic {
 				ZombieBotMain.chatbot.startTalking();
 			}
 			patience -= 1;
+		}
+	}
+	
+	public void tellkkJoke(int stage, String userInput, int randomNum)
+	{
+		if(stage == 0)
+		{
+			
 		}
 	}
 
