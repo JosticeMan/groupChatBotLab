@@ -1,26 +1,37 @@
 package zombieProgram;
 
 public class ZombieBotCoby implements Topic {
-
 	private String[] keywords;
 	private String[] userOptions;
 	private String[] goodbyeWords;
+	private String[] topicWords;
+	private String[] socialResponses;
 	private String secretWord;
-	private boolean gameStarted = false;
-	private boolean chatting;
-	private int topicChosen;
 	private String playerChoice;
 	private String playerWeapon;
 	
+	private boolean gameStarted = false;
+	private boolean chatting;
+	
+	private int topicChosen;
+	
+	
+	
 	public ZombieBotCoby() {
-		String[] temp = {"social life","hobbies","person","people","games","technology"};
+		String[] temp = {"conversation","talk","chat"};
 		keywords = temp;
+		String[] temp1 = {"social life","hobbies","person","people","games","technology"};
+		topicWords = temp1;
 		String[] temp2 = {"rock","paper","scissors"};
 		userOptions = temp2;
-		String[] temp3 = {"bye","goodbye","later",};
+		String[] temp3 = {"bye","goodbye","later","stop"};
 		goodbyeWords = temp3;
+		String[] temp4 = {"I don't...have a social life......all I do is sleepp.","We always have parties..we're already dead so we party all"
+				+ " night long"};
+		socialResponses = temp4;
 		secretWord = "vampires";
 	}
+	
 	
 	
 	@Override
@@ -34,6 +45,7 @@ public class ZombieBotCoby implements Topic {
 	}
 	
 	
+	
 	@Override
 	public void startChatting(String response) {
 		ZombieBotMain.print("Hey. Let's have a conversation urrr! As you long as you feed me brainssssss afterwards. What do you want to talk about?");
@@ -45,31 +57,34 @@ public class ZombieBotCoby implements Topic {
 			if(gameStarted) {
 				if(isthereWord(userOptions,response)) {
 					ZombieBotMain.print(getWinner(playerWeapon));
+				} else {
+					ZombieBotMain.print("That's not a choice. Please pick rock, paper or scissors");
 				}
-			}
-			
-			if(isthereWord(goodbyeWords,response)) {
-				chatting = false;
-				ZombieBotMain.chatbot.startTalking();
-			}
-				
-			if(isthereWord(keywords,response)) {
-				ZombieBotMain.print(getResponse(topicChosen));
-			}
-			if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0) {
-				ZombieBotMain.print("I hate vampires! Zombies are much cooler.");
-			}
-			else {
-				ZombieBotMain.print("Errrr I don't get it. Can you say something that I can relate to?");
+			} else {
+				if(isthereWord(goodbyeWords,response)) {
+					chatting = false;
+					ZombieBotMain.chatbot.startTalking();
+				} else {
+					if(isthereWord(topicWords,response)) {
+						ZombieBotMain.print(getResponse(topicChosen));
+					} else {
+						if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0) {
+							ZombieBotMain.print("I hate vampires! Zombies are much cooler.");
+						} else {
+							ZombieBotMain.print("Errrr I don't get it. Can you say something that I can relate to?");
+						}
+					}
+				}
 			}
 		}
 	}
 	
 	
+	
 	public boolean isthereWord(String[] list, String response) {
 		for(int i = 0; i < list.length; i++) {
 			if(ZombieBotMain.findKeyword(response, list[i], 0) >= 0) {
-				if(list == keywords) {
+				if(list == topicWords) {
 					topicChosen = i;
 				}
 				if(list == userOptions) {
@@ -80,6 +95,9 @@ public class ZombieBotCoby implements Topic {
 		}
 		return false;
 	}
+	
+	
+	
 	public String getWinner(String player) {
 		//1 is rock; 2 is paper, 3 is scissors
 		int zombieChoice = (int) ((Math.random() * 3) + 1);
@@ -106,6 +124,9 @@ public class ZombieBotCoby implements Topic {
 		return "It's a tie!";
 	}
 	
+	public int getRandomResponse(String[] arrayLength) {
+		return (int) (Math.random() * arrayLength.length);
+	}
 	
 	public String getResponse(int keywordFound) {
 		if(keywordFound == 0) {
