@@ -8,6 +8,7 @@ public class ZombieBot {
 	private Topic smallTalk;
 	private Topic zombieJokes;
 	private boolean chatting;
+	private ZombieBotJustinY favoriteFood;
 
 	public ZombieBot()
 	{
@@ -17,6 +18,11 @@ public class ZombieBot {
 		zombieJokes = new ZombieBotSunny();
 		userName = "unknownUser";
 		chatting = true;
+	}
+	
+	public ZombieBotJustinY getFavorite()
+	{
+		return favoriteFood;
 	}
 
 	public void startTalking() {

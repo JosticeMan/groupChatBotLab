@@ -132,6 +132,11 @@ public class ZombieBotJustinY implements Topic {
 		
 	}
 	
+	public String getFavoriteFood()
+	{
+		return userFavoriteFood;
+	}
+	
 	public void startChatting(String response) {
 		
 		angryMeter = 0;
