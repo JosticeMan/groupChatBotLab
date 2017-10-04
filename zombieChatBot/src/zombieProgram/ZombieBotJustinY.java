@@ -421,7 +421,7 @@ public class ZombieBotJustinY implements Topic {
 			{
 				if(ZombieBotMain.containsString(response, gameAnswers[questionNum]) != "")
 				{
-					String[] winTemp = {"ARghuhhu! Correct! Ansu was " + gameAnswers[questionNum] + "Z!", "Ding dinng! Correctughh!", " Yo very goo at this! Riggh answer!"};
+					String[] winTemp = {"ARghuhhu! Correct! Ansu was " + gameAnswers[questionNum][0] + "Z!", "Ding dinng! Correctughh!", "Yo very goo at this! Riggh answer!"};
 					ZombieBotMain.randomText(winTemp);
 					questionNum++;
 					gameScore++;
