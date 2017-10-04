@@ -92,8 +92,13 @@ public class ZombieBotSunny implements Topic {
 	{
 		if(stage == 0)
 		{
-			
+			ZombieBotMain.print("Urrrh... Knock knock!");
 		}
+		if(stage == 1 && (userInput.equalsIgnoreCase("who's there?") || userInput.equalsIgnoreCase("whos there?") || userInput.equalsIgnoreCase("who's there") || userInput.equalsIgnoreCase("whos there")))
+		{
+			ZombieBotMain.print(kkJokes[randomNum]);
+		}
+		if(stage == 1 && )
 	}
 
 	public void startChatting(String response) 
