@@ -10,7 +10,7 @@ public class ZombieBotCoby implements Topic {
 	private boolean chatting;
 	private int topicChosen;
 	private String playerChoice;
-	
+	private String playerWeapon;
 	
 	public ZombieBotCoby() {
 		String[] temp = {"social life","hobbies","person","people","games","technology"};
@@ -19,7 +19,7 @@ public class ZombieBotCoby implements Topic {
 		userOptions = temp2;
 		String[] temp3 = {"bye","goodbye","later",};
 		goodbyeWords = temp3;
-		secretWord = "the walking dead";
+		secretWord = "vampires";
 	}
 	
 	
@@ -36,19 +36,17 @@ public class ZombieBotCoby implements Topic {
 	
 	@Override
 	public void startChatting(String response) {
-		ZombieBotMain.print("Hey. Let's have a conversation urrr! As you long as you feed me brainssssss afterwards.");
+		ZombieBotMain.print("Hey. Let's have a conversation urrr! As you long as you feed me brainssssss afterwards. What do you want to talk about?");
 		chatting = true;
 		
 		while(chatting) {
 			response = ZombieBotMain.getInput();
 			
-			//if(gameStarted) {
-			//	for(int i = 0; i < userOptions.length; i++) {
-			//		if(ZombieBotMain.findKeyword(response,userOptions[i], 0) >= 0) {
-			//			ZombieBotMain.print(getWinner(userOptions[i]));
-			//		}
-			//	}
-			//}
+			if(gameStarted) {
+				if(isthereWord(userOptions,response)) {
+					ZombieBotMain.print(getWinner(playerWeapon));
+				}
+			}
 			
 			if(isthereWord(goodbyeWords,response)) {
 				chatting = false;
@@ -58,52 +56,55 @@ public class ZombieBotCoby implements Topic {
 			if(isthereWord(keywords,response)) {
 				ZombieBotMain.print(getResponse(topicChosen));
 			}
-				
 			if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0) {
-				ZombieBotMain.print("I love that show! Durrrr my brothers eventually get what they want.");
-			} else {
+				ZombieBotMain.print("I hate vampires! Zombies are much cooler.");
+			}
+			else {
 				ZombieBotMain.print("Errrr I don't get it. Can you say something that I can relate to?");
 			}
 		}
 	}
 	
+	
 	public boolean isthereWord(String[] list, String response) {
 		for(int i = 0; i < list.length; i++) {
 			if(ZombieBotMain.findKeyword(response, list[i], 0) >= 0) {
-				return true;
-			}
-			if(list == keywords) {
-				topicChosen = i;
+				if(list == keywords) {
+					topicChosen = i;
+				}
+				if(list == userOptions) {
+					playerWeapon = list[i];
+				}
 				return true;
 			}
 		}
 		return false;
 	}
-	//public String getWinner(String player) {
+	public String getWinner(String player) {
 		//1 is rock; 2 is paper, 3 is scissors
-		//int zombieChoice = (int) ((Math.random() * 3) + 1);
-		//playerChoice = player.toLowerCase();
-		//if(zombieChoice == 1 && playerChoice == "paper") {
-		//	return "I picked rock. You won.";
-		//}
-		//if(zombieChoice == 1 && playerChoice == "scissors") {
-		//	return "I picked rock. I win! Now let me eat your brain!";
-		//}
-		//if(zombieChoice == 2 && playerChoice == "rock") {
-		//	return "I picked paper. I win! Now let me eat your brain!";
-		//}
-		//if(zombieChoice == 2 && playerChoice == "scissors") {
-		//	return "I picked paper. You won.";
-		//}
-		//if(zombieChoice == 3 && playerChoice == "rock") {
-		//	return "I picked scissors. You won.";
-		//}
-		//if(zombieChoice == 3 && playerChoice == "paper") {
-		//	return "I picked scissors. I won! Now let me eat your brain!";
-		//}
-		//gameStarted = false;
-		//return "It's a tie!";
-	//}
+		int zombieChoice = (int) ((Math.random() * 3) + 1);
+		playerChoice = player.toLowerCase();
+		gameStarted = false;
+		if(zombieChoice == 1 && playerChoice == "paper") {
+			return "I picked rock. You won.";
+		}
+		if(zombieChoice == 1 && playerChoice == "scissors") {
+			return "I picked rock. I win! Now let me eat your brain!";
+		}
+		if(zombieChoice == 2 && playerChoice == "rock") {
+			return "I picked paper. I win! Now let me eat your brain!";
+		}
+		if(zombieChoice == 2 && playerChoice == "scissors") {
+			return "I picked paper. You won.";
+		}
+		if(zombieChoice == 3 && playerChoice == "rock") {
+			return "I picked scissors. You won.";
+		}
+		if(zombieChoice == 3 && playerChoice == "paper") {
+			return "I picked scissors. I won! Now let me eat your brain!";
+		}
+		return "It's a tie!";
+	}
 	
 	
 	public String getResponse(int keywordFound) {
