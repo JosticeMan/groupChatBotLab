@@ -166,6 +166,7 @@ public class ZombieBotMain {
 	  
 	public static void print(String s){
 		  multiLinePrint(s);
+		  System.out.println("");
 	  }
 	  
 	public static void multiLinePrint(String s){
