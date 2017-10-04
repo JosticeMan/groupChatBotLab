@@ -18,10 +18,10 @@ public class ZombieBotZhehao implements Topic {
 	
 	public ZombieBotZhehao()
 	{
-		String[] tempKeywords = {"pastlife","memory","alive","jesus"};
+		String[] tempKeywords = {"pastlife","memory","alive"};
 		keywords= tempKeywords;
 		String[] tempgoodbyeWords = {"bye","Goodbye","See you later","adios"};
-		keywords= tempgoodbyeWords;
+		goodbyeWords= tempgoodbyeWords;
 		String[] temptalkingpoint =  {"hobbies","school","age","background",""};
 		talkingpoint = temptalkingpoint;
 		String[] tempangerkeywords = {"bad","ugly","dumb","stupid",""};
@@ -57,50 +57,20 @@ public class ZombieBotZhehao implements Topic {
 		}
 		return false;
 	}
-	
-	public void changeemtion(String response)
+	public boolean talkingpointisfound(String response)
 	{
-		if(sademotiontriggered(response))
+		for(int i=0;i<talkingpoint.length;i++)
 		{
-			angercount+=10;
-			ZombieBotMain.randomText(asktostop);
+			if(ZombieBotMain.findKeyword(response,talkingpoint[i],0) >= 0)
+			{
+				trackingnumber = i;
+				return true;
+			}
+			
 		}
-		if(angercount == 100)
-		{
-			emotion = "angry";
-			ZombieBotMain.print("ERRRRRRRRRR! That is it! I'm going to eat your brain!");
-		}
+		return false;
 	}
 	
-	public void answerresponse(String response)
-	{
-		if(emotion=="happy")
-		{
-			for(int i=0;i<talkingpoint.length;i++)
-			{
-				if(ZombieBotMain.findKeyword(response, talkingpoint[i], 0)>=0)
-				{
-					trackingnumber = i;
-				}
-			}
-			ZombieBotMain.print(happyresponse[trackingnumber]);
-			
-		}
-		else
-		{
-			for(int i=0;i<talkingpoint.length;i++)
-			{
-				if(ZombieBotMain.findKeyword(response, talkingpoint[i], 0)>=0)
-				{
-					trackingnumber = i;
-				}
-			}
-			ZombieBotMain.print(angryresponse[trackingnumber]);
-			
-		}
-			
-		
-	}
 	public void startChatting(String response) {
 		ZombieBotMain.print("UrHh! I dOn'T rEmEmBeR mUcH.... bUt I'Ll TrY mE bEsT tO aNsWeR yOuR qUeSiTiOnS!");
 		chatting = true;
@@ -120,7 +90,31 @@ public class ZombieBotZhehao implements Topic {
 				ZombieBotMain.print("ERRR! DERRRRRRR! Me love Doraaaaa! DERRR! You can be me new bes friend!");
 				angercount=0;
 			}
-			answerresponse(response);
+			if(sademotiontriggered(response))
+			{
+				angercount+=10;
+				ZombieBotMain.randomText(asktostop);
+			}
+			if(angercount == 100)
+			{
+				emotion = "angry";
+				ZombieBotMain.print("ERRRRRRRRRR! That is it! I'm going to eat your brain!");
+			}
+			if(talkingpointisfound(response))
+			{
+				if(emotion=="happy")
+				{
+					ZombieBotMain.print(happyresponse[trackingnumber]);
+					
+				}else
+					{
+					 	ZombieBotMain.print(angryresponse[trackingnumber]);
+					}
+			}else {
+				ZombieBotMain.print("I don't understand! Say something else");
+			}
+			
+		
 		}
 	}
 
