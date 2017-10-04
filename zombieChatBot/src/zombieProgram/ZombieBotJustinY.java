@@ -57,6 +57,9 @@ public class ZombieBotJustinY implements Topic {
 	private int questionNum;
 	private boolean gamePlayed;
 	
+	private boolean switchTopic;
+	private String[] switchTrigger;
+	
 	private boolean chatting;
 	private boolean gaming;
 	
@@ -114,6 +117,9 @@ public class ZombieBotJustinY implements Topic {
 		gameAnswers = gAnswerTemp;
 		gamePlayed = false;
 		
+		String[] switchTemp = {"Okay", "Sure", "Yes", "Ya", "Please do", "I want to"};
+		switchTrigger = switchTemp;
+		
 		angryMeter = 0;
 		String[] textTemp = {"Why yo say sam thing!? I doon't like!", "Raghh...  dis makes me angry!", "No want tooo taallk!"};
 		annoyedText = textTemp;
@@ -143,6 +149,7 @@ public class ZombieBotJustinY implements Topic {
 		userName = ZombieBotMain.chatbot.getUsername();
 		String[] ftemp = {userName + ", are youuu sure you like?", "Ahhah! " + userName + " like othe peeps! I onleh liek thez brainz!"};
 		fPhrase = ftemp;
+		switchTopic = false;
 		
 		if(ZombieBotMain.findKeyword(response, "Comida", 0) >= 0)
 		{
@@ -266,7 +273,7 @@ public class ZombieBotJustinY implements Topic {
 					likeBrainz = true;
 				}
 			}
-			else if(ZombieBotMain.containsString(response, favoriteFoodTrigger) != "")
+			else if(ZombieBotMain.containsString(response, favoriteFoodTrigger) != "" && ZombieBotMain.wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger)) != "")
 			{
 				String responsePronoun = ZombieBotMain.containsString(ZombieBotMain.wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger)), pronouns);
 				if(responsePronoun != "")
@@ -342,6 +349,18 @@ public class ZombieBotJustinY implements Topic {
 				chatting = false;
 				ZombieBotMain.chatbot.switchTopic(response, 4);
 			}
+			else if(switchTopic)
+			{
+				if(ZombieBotMain.containsString(response, switchTrigger) != "")
+				{
+					chatting = false;
+					ZombieBotMain.chatbot.switchTopic("switchTopic", (((int) (Math.random() * 4 - 2)) + 2));
+				}
+				else
+				{
+					ZombieBotMain.print("Auright! Continuez foo talk!");
+				}
+			}
 			else if(Math.random() < 0.75)
 			{
 				int rando = (int) (Math.random() * randomQuestions.length);
@@ -356,6 +375,10 @@ public class ZombieBotJustinY implements Topic {
 				else if(rando == 1)
 				{
 					favoriteQuestion = true;
+				}
+				else if(rando == 0)
+				{
+					switchTopic = true;
 				}
 				ZombieBotMain.print(randomQuestions[rando]);
 			}

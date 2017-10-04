@@ -22,6 +22,7 @@ public class ZombieBot {
 	
 	public ZombieBotJustinY getFavorite()
 	{
+		//ZombieBotMain.chatbot.getFavorite().getFavoriteFood() returns what the user inputed in my class as his/her favorite food
 		return favoriteFood;
 	}
 
