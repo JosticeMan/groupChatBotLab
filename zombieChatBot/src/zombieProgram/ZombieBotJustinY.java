@@ -251,7 +251,7 @@ public class ZombieBotJustinY implements Topic {
 				ZombieBotMain.randomText(fOTemp);
 			}
 		}
-		if(sunnyPH != "" && Math.random() < .50 && !sunnyAsked)
+		if(sunnyPH != "" && Math.random() < 0.50 && !sunnyAsked)
 		{
 			ZombieBotMain.print("Ar! Liked my " + sunnyPH + " joke?");
 			sunnyQuestion = true;
