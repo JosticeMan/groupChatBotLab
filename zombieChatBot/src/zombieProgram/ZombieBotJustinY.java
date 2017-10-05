@@ -358,7 +358,7 @@ public class ZombieBotJustinY implements Topic {
 				else
 				{
 					ZombieBotMain.print(userName + " loke that!?? Outraggebous!");
-					userFavoriteFood = ZombieBotMain.wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger));
+					userFavoriteFood = ZombieBotMain.wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger).toLowerCase());
 				}
 			}
 			else if(freshQuestion)
@@ -417,7 +417,7 @@ public class ZombieBotJustinY implements Topic {
 			{
 				if(userFavoriteFood != "" && userFavoriteFood != null)
 				{
-					String[] rTemp = {"I know " + userName + " likes " + userFavoriteFood + " but I ONLEY APPROV BRAINZ!!", preferenceAnswer};
+					String[] rTemp = {"I know " + userName + " likes " + userFavoriteFood.toLowerCase() + " but I ONLEY APPROV BRAINZ!!", preferenceAnswer};
 					ZombieBotMain.randomText(rTemp);
 				}
 				else
@@ -445,6 +445,7 @@ public class ZombieBotJustinY implements Topic {
 				else
 				{
 					ZombieBotMain.print("Auright! Continuez foo talk!");
+					switchTopic = false;
 				}
 			}
 			else if(Math.random() < 0.75)
