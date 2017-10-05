@@ -5,7 +5,12 @@ public class ZombieBotCoby implements Topic {
 	private String[] userOptions;
 	private String[] goodbyeWords;
 	private String[] topicWords;
+	private String[] happyWords;
+	private String[] angryWords;
 	private String[] socialResponses;
+	private String[] hobbyResponses;
+	private String[] peopleResponses;
+	private String[] technologyResponses;
 	private String secretWord;
 	private String playerChoice;
 	private String playerWeapon;
@@ -18,17 +23,26 @@ public class ZombieBotCoby implements Topic {
 	
 	
 	public ZombieBotCoby() {
-		String[] temp = {"conversation","talk","chat"};
+		String[] temp = {"conversation","chat","smalltalk"};
 		keywords = temp;
-		String[] temp1 = {"social life","hobbies","person","people","games","technology"};
+		String[] temp1 = {"social life","hobbies","hobby","person","people","games","technology"};
 		topicWords = temp1;
 		String[] temp2 = {"rock","paper","scissors"};
 		userOptions = temp2;
 		String[] temp3 = {"bye","goodbye","later","stop"};
 		goodbyeWords = temp3;
 		String[] temp4 = {"I don't...have a social life......all I do is sleepp.","We always have parties..we're already dead so we party all"
-				+ " night long"};
+				+ " night long without having to go to sleep.","Zerrrr I don't have.. any friends."};
 		socialResponses = temp4;
+		String[] temp5 = {"I like to eat BRAINS....durrrrr let me eat yours!","Zurrr I've been sleeping..using almost all my time.", "I like"
+				+ " to win as zombies in Plants Vs Zombies."};
+		hobbyResponses = temp5;
+		String[] temp6 = {"My favorite people are uh smart people.....their brains are rich and delicious.","Errrrr of course my least "
+				+ "favorite people are....dumb people."};
+		peopleResponses = temp6;
+		String[] temp7 = {"Technology? We don't use technology! When I was alive the only phone that was out was the first Nokia.", "I don't"
+				+ "know anything about today's technology."};
+		technologyResponses = temp7;
 		secretWord = "vampires";
 	}
 	
@@ -53,12 +67,11 @@ public class ZombieBotCoby implements Topic {
 		
 		while(chatting) {
 			response = ZombieBotMain.getInput();
-			
 			if(gameStarted) {
 				if(isthereWord(userOptions,response)) {
 					ZombieBotMain.print(getWinner(playerWeapon));
 				} else {
-					ZombieBotMain.print("That's not a choice. Please pick rock, paper or scissors");
+					ZombieBotMain.print("That's not a choice.....Urrr..please pick rock, paper or scissors");
 				}
 			} else {
 				if(isthereWord(goodbyeWords,response)) {
@@ -71,7 +84,7 @@ public class ZombieBotCoby implements Topic {
 						if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0) {
 							ZombieBotMain.print("I hate vampires! Zombies are much cooler.");
 						} else {
-							ZombieBotMain.print("Errrr I don't get it. Can you say something that I can relate to?");
+							ZombieBotMain.print("Errrr I don't get it. Can you say something else?");
 						}
 					}
 				}
@@ -124,26 +137,24 @@ public class ZombieBotCoby implements Topic {
 		return "It's a tie!";
 	}
 	
-	public int getRandomResponse(String[] arrayLength) {
-		return (int) (Math.random() * arrayLength.length);
-	}
+	
 	
 	public String getResponse(int keywordFound) {
 		if(keywordFound == 0) {
-			return "I don't...have a social life......all I do is sleepp.";
+			return socialResponses[(int) (Math.random()*socialResponses.length)];
 		}
-		if(keywordFound == 1) {
-			return "I like to eat BRAINS....durrrrr let me eat yours!";
+		if(keywordFound == 1 || keywordFound == 2) {
+			return hobbyResponses[(int) (Math.random()*hobbyResponses.length)];
 		}
-		if(keywordFound == 2 || keywordFound == 3) {
-			return "My favorite people are uh smart people.....their brains are more delicious. Errrrr of course my least favorite people are....dumb people";
+		if(keywordFound == 3 || keywordFound == 4) {
+			return peopleResponses[(int) (Math.random()*peopleResponses.length)];
 		}
-		if(keywordFound == 4) {
+		if(keywordFound == 5) {
 			gameStarted = true;
 			return "I love games. Lets play rock, paper, scissors! Type in your choice";
 		}
-		if(keywordFound == 5) {
-			return "Technology? We don't use technology! When I was alive the only phone that was out was the first Nokia.";
+		if(keywordFound == 6) {
+			return technologyResponses[(int) (Math.random()*technologyResponses.length)];
 		}
 		return "I don't get what you're saying.";
 	}
