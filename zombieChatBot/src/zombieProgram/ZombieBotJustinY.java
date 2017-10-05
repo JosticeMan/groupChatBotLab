@@ -172,6 +172,14 @@ public class ZombieBotJustinY implements Topic {
 			ZombieBotMain.print("You no fun! Arghh! Talk foo again! LIKE BRAINZ OR NO BRAINZ?");
 			likeBrainz = true;
 		}
+		else if(response.equalsIgnoreCase("zheHao"))
+		{
+			ZombieBotMain.print("Allz de thinkang made me vury hungry!");
+		}
+		else if(response.equalsIgnoreCase("sunny"))
+		{
+			ZombieBotMain.print("Jokezz made me think abou foo too!");
+		}
 		else
 		{
 			ZombieBotMain.print("Yearr! Yo want talk about foo! Onleh onee thing is on my minde. ");
