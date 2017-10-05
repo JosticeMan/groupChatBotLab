@@ -75,7 +75,7 @@ public class ZombieBotSunny implements Topic {
 		}
 		else if(stage == 1 && possibilities)
 		{
-			if(randomNum == 0 && favFood != "")
+			if(randomNum == 0 && favFood != null && favFood != "")
 			{
 				ZombieBotMain.print(favFood + "! Urrh... wait no, it's Lifesavers.");
 			}
