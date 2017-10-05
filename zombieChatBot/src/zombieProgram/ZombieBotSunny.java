@@ -75,7 +75,10 @@ public class ZombieBotSunny implements Topic {
 			{
 				ZombieBotMain.print(favFood + "! Urrh... wait no, it's Lifesavers.");
 			}
-			ZombieBotMain.print(JokesAnswers[randomNum]);
+			else
+			{
+				ZombieBotMain.print(JokesAnswers[randomNum]);
+			}
 			linkJoke = JokesAnswers[randomNum];
 		}
 		else if(!possibilities && stage == 1)
