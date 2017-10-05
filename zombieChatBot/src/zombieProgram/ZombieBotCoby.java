@@ -161,7 +161,6 @@ public class ZombieBotCoby implements Topic {
 	}
 	
 	
-	
 	public String getHobby() {
 		return this.favoriteHobby;
 	}
