@@ -11,8 +11,9 @@ public class ZombieBotSunny implements Topic {
 	
 	private String[] kkJokes;
 	private String[] kkJokesAnswers;
+	private String[] possiblekkResponses;
 	
-	private String linkJoke;
+	private String linkJoke = "";
 	private boolean chatting;
 	private int patience;
 	
@@ -35,6 +36,9 @@ public class ZombieBotSunny implements Topic {
 		
 		String[] kkTempAns = {"Orange you glad I didn't say zombie?", "ZomBEE queen here to eat you!"};
 		kkJokesAnswers = kkTempAns;
+		
+		String[] kkTempResp = {"who's there", "whos there", "who's there?", "whos there?"};
+		possiblekkResponses = kkTempResp;
 		
 		patience = 5;
 		goodbyeWord = "bye";
@@ -97,15 +101,45 @@ public class ZombieBotSunny implements Topic {
 	
 	public void tellkkJoke(int stage, String userInput, int randomNum)
 	{
+		boolean possibilities = (ZombieBotMain.containsString(userInput, possiblekkResponses) != "");
 		if(stage == 0)
 		{
 			ZombieBotMain.print("Urrrh... Knock knock!");
 		}
-		if(stage == 1 && (userInput.equalsIgnoreCase("who's there?") || userInput.equalsIgnoreCase("whos there?") || userInput.equalsIgnoreCase("who's there") || userInput.equalsIgnoreCase("whos there")))
+		if(stage == 1 && possibilities)
 		{
 			ZombieBotMain.print(kkJokes[randomNum]);
 		}
-		if(stage == 1 && )
+		if(stage == 1 && !possibilities)
+		{
+			if(patience == 5)
+			{
+				ZombieBotMain.print("Urrrrh! You ruined thurr joke!");
+			}
+			if(patience == 4)
+			{
+				ZombieBotMain.print("Stop ruining my joke! Urrrrh!");
+			}
+			if(patience == 3)
+			{
+				ZombieBotMain.print("Stop it... Urrrhh... I will eat your braaaaains!");
+			}
+			if(patience == 2)
+			{
+				ZombieBotMain.print("You are... killing me... again urrhhh!");
+			}
+			if(patience == 1)
+			{
+				ZombieBotMain.print("URRRHH! That's it! No more jokes! I'm going to uurrrhhh... pretend I nevuuurh... met you!");
+				chatting = false;
+				ZombieBotMain.chatbot.startTalking();
+			}
+			patience -= 1;	
+		}
+		if(stage == 2 && (userInput.equalsIgnoreCase(kkJokes[randomNum] + "who?") || userInput.equalsIgnoreCase(kkJokes[randomNum] + "who")))
+		{
+			
+		}
 	}
 
 	public void startChatting(String response) 
