@@ -9,7 +9,9 @@ public class ZombieBot {
 	private Topic zombieJokes;
 	private boolean chatting;
 	private ZombieBotJustinY favoriteFood;
-
+	private ZombieBotSunny linkJokes;
+	private ZombieBotZhehao hasChat;
+	
 	public ZombieBot()
 	{
 		zombieFood = new ZombieBotJustinY();
@@ -24,6 +26,16 @@ public class ZombieBot {
 	{
 		//ZombieBotMain.chatbot.getFavorite().getFavoriteFood() returns what the user inputed in my class as his/her favorite food
 		return favoriteFood;
+	}
+	
+	public ZombieBotSunny getPreviousJoke()
+	{
+		return linkJokes;
+	}
+	
+	public ZombieBotZhehao getChatted()
+	{
+		return hasChat;
 	}
 
 	public void startTalking() {

@@ -63,13 +63,13 @@ public class ZombieBotJustinY implements Topic {
 	private boolean chatting;
 	private boolean gaming;
 	
-	private String sunnyPH = "Whale";
+	private String sunnyPH;
 	private boolean sunnyQuestion;
 	private boolean sunnyAsked;
 	private String[] sunnyATrigger;
 	private String[] sunnyNTrigger;
 	
-	private boolean zheHaoPH = true;
+	private boolean zheHaoPH;
 	
 	public ZombieBotJustinY() {
 		
@@ -263,6 +263,9 @@ public class ZombieBotJustinY implements Topic {
 		switchTopic = false;
 		sunnyQuestion = false;
 		sunnyAsked = false;
+		sunnyPH = ZombieBotMain.chatbot.getPreviousJoke().getJoke();
+		
+		zheHaoPH = ZombieBotMain.chatbot.getChatted().haschatted();
 		
 		handleWelcome(response);
 		
@@ -430,7 +433,7 @@ public class ZombieBotJustinY implements Topic {
 				if(ZombieBotMain.containsString(response, switchTrigger) != "")
 				{
 					chatting = false;
-					ZombieBotMain.chatbot.switchTopic("switchTopic", (((int) (Math.random() * 4 - 2)) + 2));
+					ZombieBotMain.chatbot.switchTopic("justin", (((int) (Math.random() * 4 - 2)) + 2));
 				}
 				else
 				{
@@ -465,7 +468,7 @@ public class ZombieBotJustinY implements Topic {
 		{
 			String[] gQuestTemp1 = {"Wha is squishy, pink, and loook like clump of intestines!?", "Wha e airy and yu have 2 of!?", "What e red and shape like heart?", "Wha was my role in mah past life?"};
 			gameQuestions = gQuestTemp1;
-			String[][] gAnswerTemp1 = {{"BRAIN", "BRAINS", "BRAINZ", "BRAINZZ", "BRAINZZZ"}, {"LUNG", "LUNGS", "LUNGZ", "LUNGZZ", "LUNGZZ"}, {"HEART", "HEARTS", "HEARTZ", "HEARTZZ", "HEARTZZZ"}, {"Unknown"}};
+			String[][] gAnswerTemp1 = {{"BRAIN", "BRAINS", "BRAINZ", "BRAINZZ", "BRAINZZZ"}, {"LUNG", "LUNGS", "LUNGZ", "LUNGZZ", "LUNGZZ"}, {"HEART", "HEARTS", "HEARTZ", "HEARTZZ", "HEARTZZZ"}, {"Dancing", "Dance", "Dancinz"}};
 			gameAnswers = gAnswerTemp1;
 		}
 		
