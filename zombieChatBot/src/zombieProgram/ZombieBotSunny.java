@@ -98,7 +98,7 @@ public class ZombieBotSunny implements Topic {
 			patience -= 1;
 		}
 	}
-	
+	 
 	public void tellkkJoke(int stage, String userInput, int randomNum)
 	{
 		boolean possibilities = (ZombieBotMain.containsString(userInput, possiblekkResponses) != "");
