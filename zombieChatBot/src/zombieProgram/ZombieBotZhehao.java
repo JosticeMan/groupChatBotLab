@@ -10,6 +10,7 @@ public class ZombieBotZhehao implements Topic {
 	private String[] angryresponse;
 	private String[] happyresponse;
 	private String[] asktostop;
+	private boolean ischatted = false;
 	private String secretWord;
 	private int trackingnumber=0;
 	private boolean chatting;
@@ -24,12 +25,13 @@ public class ZombieBotZhehao implements Topic {
 		goodbyeWords= tempgoodbyeWords;
 		String[] temptalkingpoint =  {"hobbies","school","age","background",""};
 		talkingpoint = temptalkingpoint;
-		String[] tempangerkeywords = {"bad","ugly","dumb","stupid",""};
+		String[] tempangerkeywords = {"bad","ugly","dumb","stupid"};
 		angerkeywords= tempangerkeywords;
 		String[] tempangryresponse = {"ERR.... I'm not goin tWo tel u I like dancing.","School? YoU mEaN PrIsOn?","Derr..I m no telling u.DO TE mATH! 9*8-56+4*3.",
-				"  "};
+				""};
 		angryresponse = tempangryresponse;
-		String[] temphappyresponse = {"I love dansing! Derr.. I like vido game! ","ERRRR! I hate school! I know nothing, teacher bad!","Err I thnk I m 420 yers oldd."};
+		String[] temphappyresponse = {"I love dansing! Derr.. I like vido game! ","ERRRR! I hate school! I know nothing, teacher bad!","Err I thnk I m 420 yers oldd.",
+				"Errr They used to called me Carl Mike o Jack sin. I was tee bes dancer the worid had ever seen!"};
 		happyresponse= temphappyresponse;
 		String[] tempasktostop= {"That is not nice!Don't said that!","IM GETTING MAD!","YOU BETTER SAID SORRY!"};
 		asktostop = tempasktostop;
@@ -70,12 +72,18 @@ public class ZombieBotZhehao implements Topic {
 		}
 		return false;
 	}
+	public boolean haschatted()
+	{
+		return ischatted;
+		
+	}
 	
 	public void startChatting(String response) {
 		ZombieBotMain.print("UrHh! I dOn'T rEmEmBeR mUcH.... bUt I'Ll TrY mE bEsT tO aNsWeR yOuR qUeSiTiOnS!");
 		chatting = true;
 		while(chatting)
 		{
+			ischatted = true;
 			response = ZombieBotMain.getInput();
 			for(int i=0;i<goodbyeWords.length;i++)
 			{
