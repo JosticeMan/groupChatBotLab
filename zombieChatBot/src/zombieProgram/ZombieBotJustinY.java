@@ -99,15 +99,12 @@ public class ZombieBotJustinY implements Topic {
 	
 		String[] freshTemp = {"yes", "no", "maybe", "it is", "it isn't"};
 		freshTrigger = freshTemp;
-		freshQuestion = false;
 		
 		String[] brainTemp = {"no", "yes", "I do", "I don't", "maybe", "Aye", "Ew", "Brain", "No Brain"};
 		brainTrigger = brainTemp;
-		likeBrainz = false;
 		
 		String[] favTemp = {"nothing", "everything"};
 		favoriteTrigger = favTemp;
-		favoriteQuestion = false;
 		
 		String[] proTemp = {"you", "him", "her", "me", "myself"};
 		pronouns = proTemp;
@@ -272,6 +269,9 @@ public class ZombieBotJustinY implements Topic {
 		sunnyQuestion = false;
 		sunnyAsked = false;
 		sunnyPH = ZombieBotMain.chatbot.getPreviousJoke().getJoke();
+		likeBrainz = false;
+		favoriteQuestion = false;
+		freshQuestion = false;
 		
 		handleWelcome(response);
 		
