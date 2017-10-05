@@ -63,12 +63,20 @@ public class ZombieBotJustinY implements Topic {
 	private boolean chatting;
 	private boolean gaming;
 	
+	private String sunnyPH = "Whale";
+	private boolean sunnyQuestion;
+	private boolean sunnyAsked;
+	private String[] sunnyATrigger;
+	private String[] sunnyNTrigger;
+	
+	private boolean zheHaoPH = true;
+	
 	public ZombieBotJustinY() {
 		
 		String[] temp = {"Brains", "Food", "Comida"};
 		keywords = temp;
 		
-		String[] byeTemp = {"Bye", "Farewell", "Adios", "Cya", "Ciao"};
+		String[] byeTemp = {"Bye", "Farewell", "Adios", "Cya", "Ciao", "Goodbye"};
 		goodbyeWords = byeTemp; 
 		String[] byePhraseTemp = {"BRAINZZ!", "Byezz", "See ya agur!", "Brin Brainzz nex time!"};
 		goodbyePhrases = byePhraseTemp;
@@ -81,7 +89,7 @@ public class ZombieBotJustinY implements Topic {
 		fquestionTriggers = ftriggerTemp;
 		
 		preferenceAnswer = "Onlyeh Brainz!";
-		String[] nftriggerTemp = {"no like", "no prefer", "not choose", "not like", "no prefer", "not choose"};
+		String[] nftriggerTemp = {"no like", "no prefer", "not choose", "not like", "no prefer", "not choose", "don't you like", "don't like"};
 		nfquestionTriggers = nftriggerTemp;
 		String[] negTemp = {"I no like everryythin but BRAINZ! Maybeh other orgaunz aswell.", "Hmm no liek this and this and tha. I luv brainz!"};
 		negPreferenceAnswer = negTemp;
@@ -113,12 +121,18 @@ public class ZombieBotJustinY implements Topic {
 		gameExit = exitTemp;
 		String[] gQuestTemp = {"Wha is squishy, pink, and loook like clump of intestines!?", "Wha e airy and yu have 2 of!?", "What e red and shape like heart?"};
 		gameQuestions = gQuestTemp;
-		String[][] gAnswerTemp = {{"BRAIN", "BRAINS", "BRAINZZ", "BRAINZZZ"}, {"LUNG", "LUNGS", "LUNGZ", "LUNGZZ", "LUNGZZ"}, {"HEART", "HEARTS", "HEARTZZ", "HEARTZZZ"}};
+		String[][] gAnswerTemp = {{"BRAIN", "BRAINS", "BRAINZ", "BRAINZZ", "BRAINZZZ"}, {"LUNG", "LUNGS", "LUNGZ", "LUNGZZ", "LUNGZZ"}, {"HEART", "HEARTS", "HEARTZ", "HEARTZZ", "HEARTZZZ"}};
 		gameAnswers = gAnswerTemp;
 		gamePlayed = false;
 		
 		String[] switchTemp = {"Okay", "Sure", "Yes", "Ya", "Please do", "I want to"};
 		switchTrigger = switchTemp;
+		
+		String[] sATemp = {"Yes", "I did", "I do", "Ye", "I loved it", "I liked it"};
+		sunnyATrigger = sATemp;
+		String[] sNTemp = {"No", "I hated it", "Na", "I didn't", "I did not like it", "maybe", "I didn't understand", "I don't know"};
+		sunnyNTrigger = sNTemp;
+		
 		
 		angryMeter = 0;
 		String[] textTemp = {"Why yo say sam thing!? I doon't like!", "Raghh...  dis makes me angry!", "No want tooo taallk! Me pretende neve met you!"};
@@ -232,6 +246,12 @@ public class ZombieBotJustinY implements Topic {
 				ZombieBotMain.randomText(fOTemp);
 			}
 		}
+		if(sunnyPH != "" && Math.random() < .50 && !sunnyAsked)
+		{
+			ZombieBotMain.print("Ar! Liked my " + sunnyPH + " joke?");
+			sunnyQuestion = true;
+			sunnyAsked = true;
+		}
 	}
 	
 	public void startChatting(String response) {
@@ -241,6 +261,8 @@ public class ZombieBotJustinY implements Topic {
 		String[] ftemp = {userName + ", are youuu sure you like?", "Ahhah! " + userName + " like othe peeps! I onleh liek thez brainz!"};
 		fPhrase = ftemp;
 		switchTopic = false;
+		sunnyQuestion = false;
+		sunnyAsked = false;
 		
 		handleWelcome(response);
 		
@@ -289,6 +311,25 @@ public class ZombieBotJustinY implements Topic {
 			{
 				chatting = false;
 				ZombieBotMain.chatbot.switchTopic(response, 4);
+			}
+			else if(sunnyQuestion)
+			{
+				sunnyQuestion = false;
+				String elResponse = ZombieBotMain.containsString(response, sunnyATrigger);
+				String elResponse1 = ZombieBotMain.containsString(response, sunnyNTrigger);
+				if(elResponse1 != "")
+				{
+					ZombieBotMain.print("Awaar! Me no funn!?");
+				}
+				else if(elResponse != "")
+				{
+					ZombieBotMain.print("Yaar! I like buing funneh!");
+				}
+				else 
+				{
+					ZombieBotMain.print("Augugu? No understand. Yo like joke or no?");
+					sunnyQuestion = true;
+				}
 			}
 			else if(favoriteQuestion)
 			{
@@ -358,6 +399,10 @@ public class ZombieBotJustinY implements Topic {
 			{
 				processFavorite(response);
 			}
+			else if(ZombieBotMain.containsString(response, nfquestionTriggers) != "")
+			{
+				ZombieBotMain.randomText(negPreferenceAnswer);
+			}
 			else if(ZombieBotMain.containsString(response, fquestionTriggers) != "")
 			{
 				if(userFavoriteFood != "" && userFavoriteFood != null)
@@ -369,10 +414,6 @@ public class ZombieBotJustinY implements Topic {
 				{
 					ZombieBotMain.print(preferenceAnswer);
 				}
-			}
-			else if(ZombieBotMain.containsString(response, nfquestionTriggers) != "")
-			{
-				ZombieBotMain.randomText(negPreferenceAnswer);
 			}
 			else if(ZombieBotMain.containsString(response, goodbyeWords) != "")
 			{
@@ -420,6 +461,13 @@ public class ZombieBotJustinY implements Topic {
 		String[] welcomeTemp = {"UGHAL! Welcomez " + userName + " to a little foo game! Yo wan play?", "Let's plaay foo trivia!"};
 		gameWelcome = welcomeTemp;
 		retries = 0;
+		if(zheHaoPH)
+		{
+			String[] gQuestTemp1 = {"Wha is squishy, pink, and loook like clump of intestines!?", "Wha e airy and yu have 2 of!?", "What e red and shape like heart?", "Wha was my role in mah past life?"};
+			gameQuestions = gQuestTemp1;
+			String[][] gAnswerTemp1 = {{"BRAIN", "BRAINS", "BRAINZ", "BRAINZZ", "BRAINZZZ"}, {"LUNG", "LUNGS", "LUNGZ", "LUNGZZ", "LUNGZZ"}, {"HEART", "HEARTS", "HEARTZ", "HEARTZZ", "HEARTZZZ"}, {"Unknown"}};
+			gameAnswers = gAnswerTemp1;
+		}
 		
 		if(response == "entertainment")
 		{
