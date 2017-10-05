@@ -10,16 +10,16 @@ public class ZombieBotZhehao implements Topic {
 	private String[] angryresponse;
 	private String[] happyresponse;
 	private String[] asktostop;
+	private String useranswer;
 	private boolean ischatted = false;
 	private String secretWord;
 	private int trackingnumber=0;
 	private boolean chatting;
-	private String emotion="happy";
-	private int angercount=0;
+	private int angercount=-1;
 	
 	public ZombieBotZhehao()
 	{
-		String[] tempKeywords = {"pastlife","memory","alive"};
+		String[] tempKeywords = {"past life","memory","alive","background information"};
 		keywords= tempKeywords;
 		String[] tempgoodbyeWords = {"bye","Goodbye","See you later","adios"};
 		goodbyeWords= tempgoodbyeWords;
@@ -33,7 +33,8 @@ public class ZombieBotZhehao implements Topic {
 		String[] temphappyresponse = {"I love dansing! Derr.. I like vido game! ","ERRRR! I hate school! I know nothing, teacher bad!","Err I thnk I m 420 yers oldd.",
 				"Errr They used to called me Carl Mike o Jack sin. I was tee bes dancer the worid had ever seen!"};
 		happyresponse= temphappyresponse;
-		String[] tempasktostop= {"That is not nice!Don't said that!","IM GETTING MAD!","YOU BETTER SAID SORRY!"};
+		String[] tempasktostop= {"That is not nice!Don't said that!","IM GOING TO GET MAD!","YOU BETTER SAID SORRY!","If You trash talk one more time Im goint to end u!",
+			"hi"	};
 		asktostop = tempasktostop;
 		secretWord = "Dora";
 	}
@@ -72,6 +73,11 @@ public class ZombieBotZhehao implements Topic {
 		}
 		return false;
 	}
+	public String triggerothers()
+	{
+		
+		
+	}
 	public boolean haschatted()
 	{
 		return ischatted;
@@ -100,27 +106,33 @@ public class ZombieBotZhehao implements Topic {
 			}
 			if(sademotiontriggered(response))
 			{
-				angercount+=10;
-				ZombieBotMain.randomText(asktostop);
+				
+				angercount+=1;
+				ZombieBotMain.print(asktostop[angercount]);
+				if(angercount == 9)
+				{
+					ZombieBotMain.print("ERRRRRRRRRR! That is it! I'm going to eat your brain!CARL DONT WANNA TALK YOU YOU ANYMORE! GG!");
+					ZombieBotMain.chatbot.startTalking();
+				}
 			}
-			if(angercount == 100)
+			else if(talkingpointisfound(response))
 			{
-				emotion = "angry";
-				ZombieBotMain.print("ERRRRRRRRRR! That is it! I'm going to eat your brain!");
-			}
-			if(talkingpointisfound(response))
-			{
-				if(emotion=="happy")
+				if(angercount<4)
 				{
 					ZombieBotMain.print(happyresponse[trackingnumber]);
 					
-				}else
+				}
+				else
 					{
 					 	ZombieBotMain.print(angryresponse[trackingnumber]);
 					}
 			}else {
 				ZombieBotMain.print("I don't understand! Say something else");
+				
 			}
+				
+			
+			
 			
 		
 		}
