@@ -7,6 +7,7 @@ public class ZombieBotSunny implements Topic {
 	private String secretWord;
 	private String[] Jokes;
 	private String[] JokesAnswers;
+	private String[] JokesAnswersCopy;
 	private String[] possibleResponses;
 	
 	private String[] kkJokes;
@@ -27,8 +28,11 @@ public class ZombieBotSunny implements Topic {
 		String[] rTemp = {"What kind of candy do zombies refuse to eat?", "Where do zombies go swimming?", "What does it take to become a zombie?"};
 		Jokes = rTemp;
 		
-		String[] rTempAns = {"Life Savers", "The Dead Sea", "Deadication"};
+		String[] rTempAns = {"Life Savers!", "The Dead Sea!", "Deadication!"};
 		JokesAnswers = rTempAns;
+		
+		String[] rTempAnsCopy = {"Life Savers", "Dead Sea", "Deadication"};
+		JokesAnswersCopy = rTempAnsCopy;
 		
 		String[] tempResp = {"what?", "what", "where", "where?"};
 		possibleResponses = tempResp;
@@ -79,7 +83,7 @@ public class ZombieBotSunny implements Topic {
 			{
 				ZombieBotMain.print(JokesAnswers[randomNum]);
 			}
-			linkJoke = JokesAnswers[randomNum];
+			linkJoke = JokesAnswersCopy[randomNum];
 		}
 		else if(!possibilities && stage == 1)
 		{
