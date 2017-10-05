@@ -49,7 +49,7 @@ public class ZombieBotSunny implements Topic {
 		patience = 5;
 		goodbyeWord = "bye";
 		secretWord = "grains";
-	}
+	} 
 	public boolean isTriggered(String response) {
 		for(int i = 0; i < keywords.length; i++)
 		{
