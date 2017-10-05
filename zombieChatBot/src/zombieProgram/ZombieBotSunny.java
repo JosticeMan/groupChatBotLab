@@ -17,6 +17,8 @@ public class ZombieBotSunny implements Topic {
 	private boolean chatting;
 	private int patience;
 	
+	private String favFood;
+	
 	public ZombieBotSunny()
 	{
 		String[] temp = {"joke", "jokes", "funny", "puns"};
@@ -59,6 +61,7 @@ public class ZombieBotSunny implements Topic {
 	{
 		return linkJoke;
 	}
+	
 	public void tellJoke(int stage, String userInput, int randomNum)
 	{
 		boolean possibilities = (ZombieBotMain.containsString(userInput, possibleResponses) != "");
@@ -68,6 +71,10 @@ public class ZombieBotSunny implements Topic {
 		}
 		else if(stage == 1 && possibilities)
 		{
+			if(randomNum == 0 && favFood != "")
+			{
+				ZombieBotMain.print(favFood + "! Urrh... wait no, it's Lifesavers.");
+			}
 			ZombieBotMain.print(JokesAnswers[randomNum]);
 			linkJoke = JokesAnswers[randomNum];
 		}
@@ -136,9 +143,9 @@ public class ZombieBotSunny implements Topic {
 			}
 			patience -= 1;	
 		}
-		if(stage == 2 && (userInput.equalsIgnoreCase(kkJokes[randomNum] + "who?") || userInput.equalsIgnoreCase(kkJokes[randomNum] + "who")))
+		if(stage == 2 && (userInput.equalsIgnoreCase(kkJokes[randomNum] + " who?") || userInput.equalsIgnoreCase(kkJokes[randomNum] + " who")))
 		{
-			
+			ZombieBotMain.print(kkJokesAnswers[randomNum]);
 		}
 	}
 
@@ -155,8 +162,11 @@ public class ZombieBotSunny implements Topic {
 		chatting = true;
 		int stageNum = 0;
 		int randomInt = (int) (Math.random()*Jokes.length);
+		int kkRandomInt = (int) (Math.random()*kkJokes.length);
+		double kkJokeToggle = Math.random();
 		while(chatting)
 		{
+			favFood = ZombieBotMain.chatbot.getFavorite().getFavoriteFood();
 			response = ZombieBotMain.getInput();
 			if(ZombieBotMain.findKeyword(response, goodbyeWord, 0) >= 0)
 			{
@@ -167,23 +177,34 @@ public class ZombieBotSunny implements Topic {
 			{
 				ZombieBotMain.print("Urrrrh! You like grains too?"); 
 			}
-			else if(response.equalsIgnoreCase("ok") || response.equalsIgnoreCase("okay") || response.equalsIgnoreCase("no") || response.equalsIgnoreCase("sure") || response.equalsIgnoreCase("go"))
+			else
 			{
 				if(response.equalsIgnoreCase("no"))
 				{
 					ZombieBotMain.print("Urrh too bad!");
 				}
-				tellJoke(stageNum, response, randomInt);
-				stageNum += 1;
-				if(stageNum == 2)
+				if(kkJokeToggle > 0.5)
 				{
-					stageNum = 0;
-					randomInt = (int) (Math.random()*Jokes.length);
+					tellkkJoke(stageNum, response, kkRandomInt);
+					stageNum += 1;
+					if(stageNum == 3)
+					{
+						stageNum = 0;
+						randomInt = (int) (Math.random()*kkJokes.length);
+						kkJokeToggle = Math.random();
+					}
 				}
-			}
-			else
-			{
-				ZombieBotMain.print("Huh. I don't really get you. Tell me something else?");
+				else 
+				{
+					tellJoke(stageNum, response, randomInt);
+					stageNum += 1;
+					if(stageNum == 2)
+					{
+						stageNum = 0;
+						randomInt = (int) (Math.random()*Jokes.length);
+						kkJokeToggle = Math.random();
+					}
+				}
 			}
 		}
 	}
