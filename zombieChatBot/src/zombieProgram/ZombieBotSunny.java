@@ -25,16 +25,16 @@ public class ZombieBotSunny implements Topic {
 		String[] temp = {"joke", "jokes", "funny", "puns"};
 		keywords = temp;
 		
-		String[] rTemp = {"What kind of candy do zombies refuse to eat?", "Where do zombies go swimming?", "What does it take to become a zombie?"};
+		String[] rTemp = {"What kind of candy do zombies refuse to eat?", "Where do zombies go swimming?", "What does it take to become a zombie?", "Who did the zombie take out to dinner?", "What did the zombie say to his date?"};
 		Jokes = rTemp;
 		
-		String[] rTempAns = {"Life Savers!", "The Dead Sea!", "Deadication!"};
+		String[] rTempAns = {"Life Savers!", "The Dead Sea!", "Deadication!", "His ghoulfriend!", "I just love a girl with BRAAIINNSSS!"};
 		JokesAnswers = rTempAns;
 		
-		String[] rTempAnsCopy = {"Life Savers", "Dead Sea", "Deadication"};
+		String[] rTempAnsCopy = {"Life Savers", "Dead Sea", "Deadication", "Ghoulfriend", "Brainnsss"};
 		JokesAnswersCopy = rTempAnsCopy;
 		
-		String[] tempResp = {"what?", "what", "where", "where?"};
+		String[] tempResp = {"what?", "what", "where", "where?", "who", "who?"};
 		possibleResponses = tempResp;
 		
 		String[] kkTemp = {"orange", "zombie"};
