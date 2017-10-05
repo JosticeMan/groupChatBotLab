@@ -14,6 +14,7 @@ public class ZombieBotCoby implements Topic {
 	private String secretWord;
 	private String playerChoice;
 	private String playerWeapon;
+	private String favoriteHobby;
 	
 	private boolean gameStarted = false;
 	private boolean chatting;
@@ -157,5 +158,10 @@ public class ZombieBotCoby implements Topic {
 			return technologyResponses[(int) (Math.random()*technologyResponses.length)];
 		}
 		return "I don't get what you're saying.";
+	}
+	
+	
+	public String getHobby() {
+		return this.favoriteHobby;
 	}
 }
