@@ -88,7 +88,7 @@ public class ZombieBotJustinY implements Topic {
 		String[] ftriggerTemp = {"like", "prefer", "choose"};
 		fquestionTriggers = ftriggerTemp;
 		
-		preferenceAnswer = "Onlyeh Brainz!";
+		preferenceAnswer = "Onlyeh like Brainz!";
 		String[] nftriggerTemp = {"no like", "no prefer", "not choose", "not like", "no prefer", "not choose", "don't you like", "don't like"};
 		nfquestionTriggers = nftriggerTemp;
 		String[] negTemp = {"I no like everryythin but BRAINZ! Maybeh other orgaunz aswell.", "Hmm no liek this and this and tha. I luv brainz!"};

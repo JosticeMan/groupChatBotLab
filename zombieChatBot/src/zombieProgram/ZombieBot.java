@@ -3,14 +3,11 @@ package zombieProgram;
 public class ZombieBot {
 
 	private String userName;
-	private Topic zombieFood;
-	private Topic pastLife;
-	private Topic smallTalk;
-	private Topic zombieJokes;
+	private ZombieBotJustinY zombieFood;
+	private ZombieBotZhehao pastLife;
+	private ZombieBotCoby smallTalk;
+	private ZombieBotSunny zombieJokes;
 	private boolean chatting;
-	private ZombieBotJustinY favoriteFood;
-	private ZombieBotSunny linkJokes;
-	private ZombieBotZhehao hasChat;
 	
 	public ZombieBot()
 	{
@@ -25,17 +22,17 @@ public class ZombieBot {
 	public ZombieBotJustinY getFavorite()
 	{
 		//ZombieBotMain.chatbot.getFavorite().getFavoriteFood() returns what the user inputed in my class as his/her favorite food
-		return favoriteFood;
+		return zombieFood;
 	}
 	
 	public ZombieBotSunny getPreviousJoke()
 	{
-		return linkJokes;
+		return zombieJokes;
 	}
 	
 	public ZombieBotZhehao getChatted()
 	{
-		return hasChat;
+		return pastLife;
 	}
 
 	public void startTalking() {
