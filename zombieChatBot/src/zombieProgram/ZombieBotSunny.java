@@ -27,7 +27,7 @@ public class ZombieBotSunny implements Topic {
 		String[] rTemp = {"What kind of candy do zombies refuse to eat?", "Where do zombies go swimming?", "What does it take to become a zombie?"};
 		Jokes = rTemp;
 		
-		String[] rTempAns = {"Life Savers!", "The Dead Sea!", "Deadication!"};
+		String[] rTempAns = {"Life Savers", "The Dead Sea", "Deadication"};
 		JokesAnswers = rTempAns;
 		
 		String[] tempResp = {"what?", "what", "where", "where?"};
