@@ -8,6 +8,7 @@ public class ZombieBot {
 	private ZombieBotCoby smallTalk;
 	private ZombieBotSunny zombieJokes;
 	private boolean chatting;
+	private boolean hasChatted;
 	
 	public ZombieBot()
 	{
@@ -17,6 +18,7 @@ public class ZombieBot {
 		zombieJokes = new ZombieBotSunny();
 		userName = "unknownUser";
 		chatting = true;
+		hasChatted = false;
 	}
 	
 	public ZombieBotJustinY getFavorite()
@@ -35,10 +37,23 @@ public class ZombieBot {
 		return pastLife;
 	}
 
+	public void noHasChatted()
+	{
+		hasChatted = false;
+	}
+	
 	public void startTalking() {
 
-		ZombieBotMain.print("Hellur! I ar Carl.. you?");
-		userName = ZombieBotMain.getInput();
+		if(!hasChatted)
+		{
+			ZombieBotMain.print("Hellur! I ar Carl.. you?");
+			hasChatted = true;
+			userName = ZombieBotMain.getInput();
+		}
+		else
+		{
+			ZombieBotMain.print("Jello! Arr it's " + userName + " again!");
+		}
 
 		chatting = true;
 		while(chatting)

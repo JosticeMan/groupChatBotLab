@@ -287,6 +287,7 @@ public class ZombieBotJustinY implements Topic {
 				if(angryMeter == 3)
 				{
 					chatting = false;
+					ZombieBotMain.chatbot.noHasChatted();
 					ZombieBotMain.chatbot.startTalking();
 				}
 			}
