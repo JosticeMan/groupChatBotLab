@@ -358,7 +358,7 @@ public class ZombieBotJustinY implements Topic {
 				else
 				{
 					ZombieBotMain.print(userName + " loke that!?? Outraggebous!");
-					userFavoriteFood = response;
+					userFavoriteFood = ZombieBotMain.wordAfter(response, ZombieBotMain.containsString(response, favoriteFoodTrigger));
 				}
 			}
 			else if(freshQuestion)
