@@ -12,6 +12,7 @@ public class ZombieBotSunny implements Topic {
 	private String[] kkJokes;
 	private String[] kkJokesAnswers;
 	
+	private String linkJoke;
 	private boolean chatting;
 	private int patience;
 	
@@ -49,6 +50,11 @@ public class ZombieBotSunny implements Topic {
 		}
 		return false;
 	}
+	
+	public String getJoke()
+	{
+		return linkJoke;
+	}
 	public void tellJoke(int stage, String userInput, int randomNum)
 	{
 		boolean possibilities = (ZombieBotMain.containsString(userInput, possibleResponses) != "");
@@ -59,6 +65,7 @@ public class ZombieBotSunny implements Topic {
 		else if(stage == 1 && possibilities)
 		{
 			ZombieBotMain.print(JokesAnswers[randomNum]);
+			linkJoke = JokesAnswers[randomNum];
 		}
 		else if(!possibilities && stage == 1)
 		{
