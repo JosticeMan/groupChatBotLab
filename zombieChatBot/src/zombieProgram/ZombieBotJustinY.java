@@ -265,8 +265,6 @@ public class ZombieBotJustinY implements Topic {
 		sunnyAsked = false;
 		sunnyPH = ZombieBotMain.chatbot.getPreviousJoke().getJoke();
 		
-		zheHaoPH = ZombieBotMain.chatbot.getChatted().haschatted();
-		
 		handleWelcome(response);
 		
 		chatting = true;
@@ -464,6 +462,7 @@ public class ZombieBotJustinY implements Topic {
 		String[] welcomeTemp = {"UGHAL! Welcomez " + userName + " to a little foo game! Yo wan play?", "Let's plaay foo trivia!"};
 		gameWelcome = welcomeTemp;
 		retries = 0;
+		zheHaoPH = ZombieBotMain.chatbot.getChatted().haschatted();
 		if(zheHaoPH)
 		{
 			String[] gQuestTemp1 = {"Wha is squishy, pink, and loook like clump of intestines!?", "Wha e airy and yu have 2 of!?", "What e red and shape like heart?", "Wha was my role in mah past life?"};
