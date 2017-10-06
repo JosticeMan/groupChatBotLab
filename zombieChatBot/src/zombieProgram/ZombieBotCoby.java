@@ -11,15 +11,19 @@ public class ZombieBotCoby implements Topic {
 	private String[] hobbyResponses;
 	private String[] peopleResponses;
 	private String[] technologyResponses;
+	private String[] confirmation;
 	private String secretWord;
 	private String playerChoice;
 	private String playerWeapon;
 	private String favoriteHobby;
 	
 	private boolean gameStarted = false;
+	private boolean asktoSwitch = false;
 	private boolean chatting;
 	
 	private int topicChosen;
+	private int dialogues = 0;
+	private int idkTime = 0;
 	
 	
 	
@@ -41,9 +45,11 @@ public class ZombieBotCoby implements Topic {
 		String[] temp6 = {"My favorite people are uh smart people.....their brains are rich and delicious.","Errrrr of course my least "
 				+ "favorite people are....dumb people."};
 		peopleResponses = temp6;
-		String[] temp7 = {"Technology? We don't use technology! When I was alive the only phone that was out was the first Nokia.", "I don't"
+		String[] temp7 = {"Technology? We don't use technology! When I was alive the only phone that was out was the first Nokia.", "I don't "
 				+ "know anything about today's technology."};
 		technologyResponses = temp7;
+		//String[] temp8 = {"yes","no"};
+		//confirmation = temp8;
 		secretWord = "vampires";
 	}
 	
@@ -85,13 +91,31 @@ public class ZombieBotCoby implements Topic {
 						if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0) {
 							ZombieBotMain.print("I hate vampires! Zombies are much cooler.");
 						} else {
-							ZombieBotMain.print("Errrr I don't get it. Can you say something else?");
+							//if(asktoSwitch && isthereWord(confirmation, response)) {
+							//	
+							//} else {
+							//	if(asktoSwitch && isthereWord(denial, response)) {
+							//		ZombieBotMain.print("Okay then.");
+							//		dialogues = 0;
+							//	} else {
+							idkTime++;
+							if(idkTime < 4) {	
+								ZombieBotMain.print("Errrr I don't get it. Can you say something else?");
+							} else {
+								ZombieBotMain.print("I don't get what you're saying. How about we talk about " + topicWords[(int) (Math.random()*topicWords.length)]);
+							}
 						}
 					}
 				}
 			}
+			//dialogues++;
+			//if(dialogues > 5) {
+			//	ZombieBotMain.print("Would you like to talk about my past life now?");
+			//	asktoSwitch = true;
+			//}
 		}
 	}
+	//}
 	
 	
 	
@@ -157,11 +181,7 @@ public class ZombieBotCoby implements Topic {
 		if(keywordFound == 6) {
 			return technologyResponses[(int) (Math.random()*technologyResponses.length)];
 		}
-		return "I don't get what you're saying.";
-	}
-	
-	
-	public String getHobby() {
-		return this.favoriteHobby;
-	}
+		return "";
+	}	
 }
+	
