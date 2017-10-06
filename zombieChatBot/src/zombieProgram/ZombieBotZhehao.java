@@ -9,8 +9,10 @@ public class ZombieBotZhehao implements Topic {
 	private String[] angerkeywords;
 	private String[] angryresponse;
 	private String[] happyresponse;
+	private String[] suggesttopic;
 	private String[] asktostop;
-	private String useranswer;
+	private String[] othertopic; // put keywords in
+	private int questionasked=0;
 	private boolean ischatted = false;
 	private String secretWord;
 	private int trackingnumber=0;
@@ -36,6 +38,9 @@ public class ZombieBotZhehao implements Topic {
 		String[] tempasktostop= {"That is not nice!Don't said that!","IM GOING TO GET MAD!","YOU BETTER SAID SORRY!","If You trash talk one more time Im goint to end u!",
 			"hi"	};
 		asktostop = tempasktostop;
+		String[] tempsuggesttopic = {"I don't understand you. Let's talk about my hobbies.","ERR wat? I can't answer that. How about we talk about school?","Do you want to talk about something else?Maybe like my personal legacy.(hint: background)",
+				"I don't understand! Say something else!"};
+		suggesttopic=tempsuggesttopic;
 		secretWord = "Dora";
 	}
 	public boolean isTriggered(String response) {
@@ -73,11 +78,6 @@ public class ZombieBotZhehao implements Topic {
 		}
 		return false;
 	}
-	public String triggerothers()
-	{
-		
-		
-	}
 	public boolean haschatted()
 	{
 		return ischatted;
@@ -108,29 +108,32 @@ public class ZombieBotZhehao implements Topic {
 			{
 				
 				angercount+=1;
+				questionasked +=1;
 				ZombieBotMain.print(asktostop[angercount]);
 				if(angercount == 9)
 				{
 					ZombieBotMain.print("ERRRRRRRRRR! That is it! I'm going to eat your brain!CARL DONT WANNA TALK YOU YOU ANYMORE! GG!");
 					ZombieBotMain.chatbot.startTalking();
 				}
-			}
-			else if(talkingpointisfound(response))
+			}else if(talkingpointisfound(response))
 			{
 				if(angercount<4)
 				{
+					questionasked +=1;
 					ZombieBotMain.print(happyresponse[trackingnumber]);
 					
 				}
 				else
 					{
+						questionasked +=1;
 					 	ZombieBotMain.print(angryresponse[trackingnumber]);
 					}
 			}else {
-				ZombieBotMain.print("I don't understand! Say something else");
+				questionasked+=1;
+				ZombieBotMain.randomText(suggesttopic);
 				
 			}
-				
+		
 			
 			
 			
