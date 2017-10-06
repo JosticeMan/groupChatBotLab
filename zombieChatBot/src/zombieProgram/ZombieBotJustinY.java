@@ -72,6 +72,8 @@ public class ZombieBotJustinY implements Topic {
 	private String[] sunnyNTrigger;
 	private String[] sunnyResponses;
 	
+	private String[] welcomeResponse;
+	
 	private boolean zheHaoPH;
 	
 	public ZombieBotJustinY() {
@@ -172,28 +174,28 @@ public class ZombieBotJustinY implements Topic {
 	{
 		if(ZombieBotMain.findKeyword(response, "Comida", 0) >= 0)
 		{
-			ZombieBotMain.print("Argh! No gusta spanish! Gustarrgh food!");
+			ZombieBotMain.print(welcomeResponse[0]);
 		}
 		else if(response.equalsIgnoreCase("cameFromGame"))
 		{
-			ZombieBotMain.print("Gooood game! " + userName + ", bac talk abou food now!");
+			ZombieBotMain.print(welcomeResponse[1]);
 		}
 		else if(response.equalsIgnoreCase("leftGame"))
 		{
-			ZombieBotMain.print("You no fun! Arghh! Talk foo again! LIKE BRAINZ OR NO BRAINZ?");
+			ZombieBotMain.print(welcomeResponse[2]);
 			likeBrainz = true;
 		}
 		else if(response.equalsIgnoreCase("zheHao"))
 		{
-			ZombieBotMain.print("Allz de thinkang made me vury hungry!");
+			ZombieBotMain.print(welcomeResponse[3]);
 		}
 		else if(response.equalsIgnoreCase("sunny"))
 		{
-			ZombieBotMain.print("Jokezz made me think abou foo too!");
+			ZombieBotMain.print(welcomeResponse[4]);
 		}
 		else
 		{
-			ZombieBotMain.print("Yearr! Yo want talk about foo! Onleh onee thing is on my minde. ");
+			ZombieBotMain.print(welcomeResponse[5]);
 		}
 	}
 	
@@ -402,6 +404,8 @@ public class ZombieBotJustinY implements Topic {
 		freshResponses = freshRTemp;
 		String[] brainRTemp = {"Cme her! I eatt you!", "Alas! I foun anooother buing tha like BRAINZ! I loove you, " + userName, "Yooou! Mee no happy!", "Arguhh? Whatch saay? LIKE BRAINZ OR NO BRAINZ!?"};
 		brainResponses = brainRTemp;
+		String[] welcomeTemp = {"Argh! No gusta spanish! Gustarrgh food!", "Gooood game! " + userName + ", bac talk abou food now!", "You no fun! Arghh! Talk foo again! LIKE BRAINZ OR NO BRAINZ?", "Allz de thinkang made me vury hungry!", "Jokezz made me think abou foo too!", "Yearr! Yo want talk about foo! Onleh onee thing is on my minde. "};
+		welcomeResponse = welcomeTemp;
 		switchTopic = false;
 		sunnyQuestion = false;
 		sunnyAsked = false;
