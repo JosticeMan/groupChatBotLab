@@ -5,10 +5,6 @@ public class ZombieBotJustinY implements Topic {
 	//This class is to be only changed by JUSTIN YAU
 	//This section will manage the talks about food. 
 	
-	//Respond uniquely to last 2 random questions
-	//Perhaps implement a food game?
-	//AFTER: WORK WITH GROUP TO CONNECT MESSAGES SO IT ISN'T SO OBVIOUS THAT THE ZOMBIE PERSONALITY CHANGED WHEN TOPIC SWAPPED.
-	
 	private String[] keywords; 
 	
 	//Makes the bot get increasingly annoyed over the same consecutive responses. 
@@ -68,6 +64,7 @@ public class ZombieBotJustinY implements Topic {
 	private boolean sunnyAsked;
 	private String[] sunnyATrigger;
 	private String[] sunnyNTrigger;
+	private String[] sunnyResponses;
 	
 	private boolean zheHaoPH;
 	
@@ -122,14 +119,15 @@ public class ZombieBotJustinY implements Topic {
 		gameAnswers = gAnswerTemp;
 		gamePlayed = false;
 		
-		String[] switchTemp = {"Okay", "Sure", "Yes", "Ya", "Please do", "I want to"};
+		String[] switchTemp = {"Okay", "Sure", "Yes", "Ya", "Please do", "I want to", "Perhaps"};
 		switchTrigger = switchTemp;
 		
 		String[] sATemp = {"Yes", "I did", "I do", "Ye", "I loved it", "I liked it"};
 		sunnyATrigger = sATemp;
 		String[] sNTemp = {"No", "I hated it", "Na", "I didn't", "I did not like it", "maybe", "I didn't understand", "I don't know"};
 		sunnyNTrigger = sNTemp;
-		
+		String[] sAnTemp = {"Awaar! Me no funn!?", "Yaar! I like buing funneh!", "Augugu? No understand. Yo like joke or no?"};
+		sunnyResponses = sAnTemp;
 		
 		angryMeter = 0;
 		String[] textTemp = {"Why yo say sam thing!? I doon't like!", "Raghh...  dis makes me angry!", "No want tooo taallk! Me pretende neve met you!"};
@@ -259,6 +257,64 @@ public class ZombieBotJustinY implements Topic {
 		}
 	}
 	
+	public int handleDifferentTrigger(String response) {
+		if(ZombieBotMain.chatbot.differentTalkTrigger(response, 2))
+		{
+			return 2;
+		}
+		else if(ZombieBotMain.chatbot.differentTalkTrigger(response, 3))
+		{
+			return 3;
+		}
+		else if(ZombieBotMain.chatbot.differentTalkTrigger(response, 4))
+		{
+			return 4;
+		}
+		return 0;
+	}
+	
+	public void handleAngerPrint() {
+		ZombieBotMain.print(annoyedText[angryMeter - 1]);
+		if(angryMeter == 3)
+		{
+			chatting = false;
+			ZombieBotMain.chatbot.noHasChatted();
+			ZombieBotMain.chatbot.startTalking();
+		}
+	}
+	
+	public void respondToGameTrigger(String response)
+	{
+		if(gamePlayed)
+		{
+			ZombieBotMain.print("Yo already playz the game! Talk food!");
+		}
+		else
+		{
+			chatting = false;
+			startGaming(ZombieBotMain.containsString(response, gameTrigger));
+		}
+	}
+	
+	public boolean handleAnswerFromLinkQuestion(String response, String[] aTrigger, String[] nTrigger, String[] answers) {
+		String elResponse = ZombieBotMain.containsString(response, aTrigger);
+		String elResponse1 = ZombieBotMain.containsString(response, nTrigger);
+		if(elResponse1 != "")
+		{
+			ZombieBotMain.print(answers[0]);
+		}
+		else if(elResponse != "")
+		{
+			ZombieBotMain.print(answers[1]);
+		}
+		else 
+		{
+			ZombieBotMain.print(answers[2]);
+			return true;
+		}
+		return false;
+	}
+	
 	public void startChatting(String response) {
 		
 		angryMeter = 0;
@@ -283,13 +339,7 @@ public class ZombieBotJustinY implements Topic {
 			
 			if(angryMeter > 0)
 			{
-				ZombieBotMain.print(annoyedText[angryMeter - 1]);
-				if(angryMeter == 3)
-				{
-					chatting = false;
-					ZombieBotMain.chatbot.noHasChatted();
-					ZombieBotMain.chatbot.startTalking();
-				}
+				handleAngerPrint();
 			}
 			else if(response.equalsIgnoreCase(""))
 			{
@@ -297,49 +347,16 @@ public class ZombieBotJustinY implements Topic {
 			}
 			else if(ZombieBotMain.containsString(response, gameTrigger) != "")
 			{
-				if(gamePlayed)
-				{
-					ZombieBotMain.print("Yo already playz the game! Talk food!");
-				}
-				else
-				{
-					chatting = false;
-					startGaming(ZombieBotMain.containsString(response, gameTrigger));
-				}
+				respondToGameTrigger(response);
 			}
-			else if(ZombieBotMain.chatbot.differentTalkTrigger(response, 2))
+			else if(handleDifferentTrigger(response) != 0)
 			{
 				chatting = false;
-				ZombieBotMain.chatbot.switchTopic(response, 2);
-			}
-			else if(ZombieBotMain.chatbot.differentTalkTrigger(response, 3))
-			{
-				chatting = false;
-				ZombieBotMain.chatbot.switchTopic(response, 3);
-			}
-			else if(ZombieBotMain.chatbot.differentTalkTrigger(response, 4))
-			{
-				chatting = false;
-				ZombieBotMain.chatbot.switchTopic(response, 4);
+				ZombieBotMain.chatbot.switchTopic(response, handleDifferentTrigger(response));
 			}
 			else if(sunnyQuestion)
 			{
-				sunnyQuestion = false;
-				String elResponse = ZombieBotMain.containsString(response, sunnyATrigger);
-				String elResponse1 = ZombieBotMain.containsString(response, sunnyNTrigger);
-				if(elResponse1 != "")
-				{
-					ZombieBotMain.print("Awaar! Me no funn!?");
-				}
-				else if(elResponse != "")
-				{
-					ZombieBotMain.print("Yaar! I like buing funneh!");
-				}
-				else 
-				{
-					ZombieBotMain.print("Augugu? No understand. Yo like joke or no?");
-					sunnyQuestion = true;
-				}
+				sunnyQuestion = handleAnswerFromLinkQuestion(response, sunnyATrigger, sunnyNTrigger, sunnyResponses);
 			}
 			else if(favoriteQuestion)
 			{
@@ -461,7 +478,42 @@ public class ZombieBotJustinY implements Topic {
 		}
 			
 	}
-		
+	
+	public void handleQuestionAnswer(String response)
+	{
+		if(ZombieBotMain.containsString(response, gameAnswers[questionNum]) != "")
+		{
+			String[] winTemp = {"ARghuhhu! Correct! Ansu was " + gameAnswers[questionNum][0] + "Z!", "Ding dinng! Correctughh!", "Yo very goo at this! Riggh answer!"};
+			ZombieBotMain.randomText(winTemp);
+			questionNum++;
+			gameScore++;
+			if(questionNum == gameQuestions.length)
+			{
+				ZombieBotMain.print("Graat! You beat teh game! BRAAIN for you!");
+				gaming = false;
+				startChatting("cameFromGame");
+			}
+			else
+			{
+				ZombieBotMain.print(gameQuestions[questionNum]);
+			}
+		}
+		else
+		{
+			if(retries == 3)
+			{
+				ZombieBotMain.print("Losseeer! No moar guesses! Yo had " + gameScore + " points!");
+				gaming = false;
+				startChatting("cameFromGame");
+			}
+			else
+			{
+				ZombieBotMain.print("Mistak! Tra again! " + gameQuestions[questionNum]);
+				retries++;
+			}
+		}
+	}
+	
 	public void startGaming(String response)
 	{
 		angryMeter = 0;
@@ -493,25 +545,11 @@ public class ZombieBotJustinY implements Topic {
 		while(gaming)
 		{
 			response = ZombieBotMain.getInput();
-			if(response.equalsIgnoreCase(previousResponse))
-			{
-				angryMeter++;
-				previousResponse = response;
-			}
-			else
-			{
-				angryMeter = 0;
-				previousResponse = response;
-			}
+			angryOrNo(response);
 			
 			if(angryMeter > 0)
 			{
-				ZombieBotMain.print(annoyedText[angryMeter - 1]);
-				if(angryMeter == 3)
-				{
-					gaming = false;
-					ZombieBotMain.chatbot.startTalking();
-				}
+				handleAngerPrint();
 			}
 			else if(ZombieBotMain.containsString(response, gameExit) != "")
 			{
@@ -527,37 +565,7 @@ public class ZombieBotJustinY implements Topic {
 			}
 			else if(questionNum != -1)
 			{
-				if(ZombieBotMain.containsString(response, gameAnswers[questionNum]) != "")
-				{
-					String[] winTemp = {"ARghuhhu! Correct! Ansu was " + gameAnswers[questionNum][0] + "Z!", "Ding dinng! Correctughh!", "Yo very goo at this! Riggh answer!"};
-					ZombieBotMain.randomText(winTemp);
-					questionNum++;
-					gameScore++;
-					if(questionNum == gameQuestions.length)
-					{
-						ZombieBotMain.print("Graat! You beat teh game! BRAAIN for you!");
-						gaming = false;
-						startChatting("cameFromGame");
-					}
-					else
-					{
-						ZombieBotMain.print(gameQuestions[questionNum]);
-					}
-				}
-				else
-				{
-					if(retries == 3)
-					{
-						ZombieBotMain.print("Losseeer! No moar guesses! Yo had " + gameScore + " points!");
-						gaming = false;
-						startChatting("cameFromGame");
-					}
-					else
-					{
-						ZombieBotMain.print("Mistak! Tra again! " + gameQuestions[questionNum]);
-						retries++;
-					}
-				}
+				handleQuestionAnswer(response);
 			}
 			else
 			{
