@@ -41,6 +41,8 @@ public class ZombieBotZhehao implements Topic {
 		String[] tempsuggesttopic = {"I don't understand you. Let's talk about my hobbies.","ERR wat? I can't answer that. How about we talk about school?","Do you want to talk about something else?Maybe like my personal legacy.(hint: background)",
 				"I don't understand! Say something else!"};
 		suggesttopic=tempsuggesttopic;
+		String[] tempothertopic= {"jokes"};
+		othertopic= tempothertopic;
 		secretWord = "Dora";
 	}
 	public boolean isTriggered(String response) {
@@ -83,7 +85,6 @@ public class ZombieBotZhehao implements Topic {
 		return ischatted;
 		
 	}
-	
 	public void startChatting(String response) {
 		ZombieBotMain.print("UrHh! I dOn'T rEmEmBeR mUcH.... bUt I'Ll TrY mE bEsT tO aNsWeR yOuR qUeSiTiOnS!");
 		chatting = true;
