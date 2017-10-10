@@ -5,13 +5,14 @@ public class ZombieBotCoby implements Topic {
 	private String[] userOptions;
 	private String[] goodbyeWords;
 	private String[] topicWords;
-	private String[] happyWords;
-	private String[] angryWords;
 	private String[] socialResponses;
 	private String[] hobbyResponses;
 	private String[] peopleResponses;
 	private String[] technologyResponses;
+	
 	private String[] confirmation;
+	private String[] denial;
+	
 	private String secretWord;
 	private String playerChoice;
 	private String playerWeapon;
@@ -48,8 +49,10 @@ public class ZombieBotCoby implements Topic {
 		String[] temp7 = {"Technology? We don't use technology! When I was alive the only phone that was out was the first Nokia.", "I don't "
 				+ "know anything about today's technology."};
 		technologyResponses = temp7;
-		//String[] temp8 = {"yes","no"};
-		//confirmation = temp8;
+		String[] temp8 = {"yes","ok","sure","okay"};
+		confirmation = temp8;
+		String[] temp9 = {"no","nah","never","negative"};
+		denial = temp9;
 		secretWord = "vampires";
 	}
 	
@@ -80,42 +83,43 @@ public class ZombieBotCoby implements Topic {
 				} else {
 					ZombieBotMain.print("That's not a choice.....Urrr..please pick rock, paper or scissors");
 				}
-			} else {
-				if(isthereWord(goodbyeWords,response)) {
-					chatting = false;
-					ZombieBotMain.chatbot.startTalking();
 				} else {
-					if(isthereWord(topicWords,response)) {
-						ZombieBotMain.print(getResponse(topicChosen));
+					if(isthereWord(goodbyeWords,response)) {
+						chatting = false;
+						ZombieBotMain.chatbot.startTalking();
 					} else {
-						if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0) {
-							ZombieBotMain.print("I hate vampires! Zombies are much cooler.");
+						if(isthereWord(topicWords,response)) {
+							ZombieBotMain.print(getResponse(topicChosen));
 						} else {
-							//if(asktoSwitch && isthereWord(confirmation, response)) {
-							//	
-							//} else {
-							//	if(asktoSwitch && isthereWord(denial, response)) {
-							//		ZombieBotMain.print("Okay then.");
-							//		dialogues = 0;
-							//	} else {
-							idkTime++;
-							if(idkTime < 4) {	
-								ZombieBotMain.print("Errrr I don't get it. Can you say something else?");
+							if(ZombieBotMain.findKeyword(response, secretWord, 0) >= 0) {
+								ZombieBotMain.print("I hate vampires! Zombies are much cooler.");
 							} else {
-								ZombieBotMain.print("I don't get what you're saying. How about we talk about " + topicWords[(int) (Math.random()*topicWords.length)]);
+								if(asktoSwitch && isthereWord(confirmation, response)) {
+									ZombieBotMain.
+								} else {
+									if(asktoSwitch && isthereWord(denial, response)) {
+										ZombieBotMain.print("Okay then. Let's keep talking.");
+										dialogues = 0;
+									} else {
+										idkTime++;
+										if(idkTime < 3) {	
+											ZombieBotMain.print("Errrr I don't get it. Can you say something else?");
+										} else {
+											ZombieBotMain.print("I don't get what you're saying. How about we talk about " + topicWords[(int) (Math.random()*topicWords.length)]);
+										}
+									}
+								}
 							}
+						}
+						dialogues++;
+						if(dialogues > 5) {
+							ZombieBotMain.print("Would you like to talk about my past life now?");
+							asktoSwitch = true;
 						}
 					}
 				}
 			}
-			//dialogues++;
-			//if(dialogues > 5) {
-			//	ZombieBotMain.print("Would you like to talk about my past life now?");
-			//	asktoSwitch = true;
-			//}
-		}
 	}
-	//}
 	
 	
 	
