@@ -11,8 +11,9 @@ public class ZombieBotZhehao implements Topic {
 	private String[] happyresponse;
 	private String[] suggesttopic;
 	private String[] asktostop;
-	private String[] othertopic; // put keywords in
+	private String[] confirm;// put keywords in
 	private int questionasked=0;
+	private boolean wanttochange = false;
 	private boolean ischatted = false;
 	private String secretWord;
 	private int trackingnumber=0;
@@ -25,7 +26,7 @@ public class ZombieBotZhehao implements Topic {
 		keywords= tempKeywords;
 		String[] tempgoodbyeWords = {"bye","Goodbye","See you later","adios"};
 		goodbyeWords= tempgoodbyeWords;
-		String[] temptalkingpoint =  {"hobbies","school","age","background",""};
+		String[] temptalkingpoint =  {"hobbies","school","age","background"};
 		talkingpoint = temptalkingpoint;
 		String[] tempangerkeywords = {"bad","ugly","dumb","stupid"};
 		angerkeywords= tempangerkeywords;
@@ -41,8 +42,8 @@ public class ZombieBotZhehao implements Topic {
 		String[] tempsuggesttopic = {"I don't understand you. Let's talk about my hobbies.","ERR wat? I can't answer that. How about we talk about school?","Do you want to talk about something else?Maybe like my personal legacy.(hint: background)",
 				"I don't understand! Say something else!"};
 		suggesttopic=tempsuggesttopic;
-		String[] tempothertopic= {"jokes"};
-		othertopic= tempothertopic;
+		String[] tempothertopic= {"ok","sure","okay","yes"};
+		confirm= tempothertopic;
 		secretWord = "Dora";
 	}
 	public boolean isTriggered(String response) {
@@ -80,6 +81,19 @@ public class ZombieBotZhehao implements Topic {
 		}
 		return false;
 	}
+	public boolean triggerothertopic(String response)
+	{
+		for(int i=0;i<confirm.length;i++)
+		{
+			if(ZombieBotMain.findKeyword(response,confirm[i],0) >= 0)
+			{
+				return true;
+			}
+			
+		}
+		return false;
+		
+	}
 	public boolean haschatted()
 	{
 		return ischatted;
@@ -100,6 +114,14 @@ public class ZombieBotZhehao implements Topic {
 					ZombieBotMain.chatbot.startTalking();
 				}
 			}
+			if(wanttochange == true)
+			{
+				if(triggerothertopic(response) == true)
+				{
+					ZombieBotMain.chatbot.switchTopic(response,3);
+				}
+				ZombieBotMain.print("OK let talk more about my past life.");
+			}
 			
 			if (ZombieBotMain.findKeyword(response, secretWord, 0)>=0) {
 				ZombieBotMain.print("ERRR! DERRRRRRR! Me love Doraaaaa! DERRR! You can be me new bes friend!");
@@ -113,11 +135,17 @@ public class ZombieBotZhehao implements Topic {
 				ZombieBotMain.print(asktostop[angercount]);
 				if(angercount == 9)
 				{
-					ZombieBotMain.print("ERRRRRRRRRR! That is it! I'm going to eat your brain!CARL DONT WANNA TALK YOU YOU ANYMORE! GG!");
+					ZombieBotMain.print("ERRRRRRRRRR! That is it! I'm going to eat your brain!CARL DONT WANNA TALK YOU YOU ANYMORE! FORCE SHUTDOWN!");
 					ZombieBotMain.chatbot.startTalking();
 				}
 			}else if(talkingpointisfound(response))
 			{
+				if(questionasked > 4)
+				{
+					ZombieBotMain.print("Do you want to talk about my zombie life?");
+					wanttochange = true;
+					
+				}
 				if(angercount<4)
 				{
 					questionasked +=1;
