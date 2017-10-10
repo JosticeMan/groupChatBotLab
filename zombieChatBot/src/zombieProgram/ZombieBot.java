@@ -128,18 +128,22 @@ public class ZombieBot {
 	{
 		if(topicNum == 1)
 		{
+			//ZombieBotMain.chatbot.switchTopic(response, 1)
 			zombieFood.startChatting(response);
 		}
 		else if(topicNum == 2)
 		{
+			//ZombieBotMain.chatbot.switchTopic(response, 2)
 			pastLife.startChatting(response);
 		}
 		else if(topicNum == 3)
 		{
+			//ZombieBotMain.chatbot.switchTopic(response, 3)
 			smallTalk.startChatting(response);
 		}
 		else if(topicNum == 4)
 		{
+			//ZombieBotMain.chatbot.switchTopic(response, 4)
 			zombieJokes.startChatting(response);
 		}
 	}
