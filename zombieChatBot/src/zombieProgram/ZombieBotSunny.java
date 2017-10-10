@@ -16,7 +16,6 @@ public class ZombieBotSunny implements Topic {
 	private String[] kkJokesAnswers;
 	private String[] possiblekkResponses;
 	
-	private int topicStage;
 	private String linkJoke = "";
 	private boolean chatting;
 	private int patience;
@@ -28,7 +27,7 @@ public class ZombieBotSunny implements Topic {
 		String[] temp = {"joke", "jokes", "funny", "puns"};
 		keywords = temp;
 		
-		String[] temp2 = {"food", "life", "talk"};
+		String[] temp2 = {"food", "life", "smalltalk"};
 		topicKeywords = temp2;
 		
 		String[] rTemp = {"What kind of candy do zombies refuse to eat?", "Where do zombies go swimming?", "What does it take to become a zombie?", "Who did the zombie take out to dinner?", "What did the zombie say to his date?"};
@@ -43,10 +42,10 @@ public class ZombieBotSunny implements Topic {
 		String[] tempResp = {"what?", "what", "where", "where?", "who", "who?"};
 		possibleResponses = tempResp;
 		
-		String[] kkTemp = {"orange", "zombie"};
+		String[] kkTemp = {"orange", "zombie", "dead"};
 		kkJokes = kkTemp;
 		
-		String[] kkTempAns = {"Orange you glad I didn't say zombie?", "ZomBEE queen here to eat you!"};
+		String[] kkTempAns = {"Orange you glad I didn't say zombie?", "ZomBEE queen here to eat you!", "Dead you!"};
 		kkJokesAnswers = kkTempAns;
 		
 		String[] kkTempResp = {"who's there", "whos there", "who's there?", "whos there?"};
@@ -109,7 +108,7 @@ public class ZombieBotSunny implements Topic {
 	 
 	public void tellkkJoke(int stage, String userInput, int randomNum)
 	{
-		boolean possibilities = (ZombieBotMain.containsString(userInput, possiblekkResponses) != "");
+		boolean possibilities = (ZombieBotMain.containsString(userInput, possiblekkResponses) != "" || ZombieBotMain.containsString(userInput, possiblekkResponses) != null);
 		if(stage == 0)
 		{
 			ZombieBotMain.print("Urrrh... Knock knock!");
@@ -118,7 +117,7 @@ public class ZombieBotSunny implements Topic {
 		{
 			ZombieBotMain.print(kkJokes[randomNum]);
 		}
-		if(stage >= 1 && !possibilities)
+		if(stage ==1 && !possibilities)
 		{
 			ZombieBotMain.print(patienceLevels[patience-1]);
 			if(patience == 1)
@@ -134,25 +133,6 @@ public class ZombieBotSunny implements Topic {
 		}
 	}
 
-	public void changeTopic(int stage, String userInput)
-	{
-		if(stage == 0)
-		{
-			ZombieBotMain.print("Urrhh.. You don't want to...talk about erh.. jokes? What you want to uuurhhh... talk about?");
-		}
-		if(stage == 1)
-		{
-			//food life talk
-			if(ZombieBotMain.containsString(userInput, topicKeywords) != null)
-			{
-				
-			}
-			
-			ZombieBotMain.chatbot.switchTopic(userInput, topicNum);
-		}
-		
-	}
-	
 	public void startChatting(String response) 
 	{
 		if(ZombieBotMain.findKeyword(response, secretWord, 0) > -1)
@@ -164,6 +144,7 @@ public class ZombieBotSunny implements Topic {
 			ZombieBotMain.print("Urrh... I will tell... erh... joke.");
 		}
 		chatting = true;
+		patience = 5;
 		int stageNum = 0;
 		int topicStage = 0;
 		int randomInt = (int) (Math.random()*Jokes.length);
@@ -186,8 +167,9 @@ public class ZombieBotSunny implements Topic {
 			{
 				if(response.equalsIgnoreCase("no") || response.equalsIgnoreCase("nah") || topicStage >= 1)
 				{
-					changeTopic(topicStage, response);
-					topicStage += 1;
+					int topicNum = (int) Math.random()*3;
+					ZombieBotMain.print("Lets talk about " + topicKeywords[topicNum]);
+					ZombieBotMain.chatbot.switchTopic("sunny", topicNum);
 				}
 				if(kkJokeToggle > 0.5)
 				{
@@ -210,10 +192,6 @@ public class ZombieBotSunny implements Topic {
 						randomInt = (int) (Math.random()*Jokes.length);
 						kkJokeToggle = Math.random();
 					}
-				}
-				else
-				{
-					
 				}
 			}
 		}
