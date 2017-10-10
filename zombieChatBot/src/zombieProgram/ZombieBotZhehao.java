@@ -121,6 +121,7 @@ public class ZombieBotZhehao implements Topic {
 					ZombieBotMain.chatbot.switchTopic(response,3);
 				}
 				ZombieBotMain.print("OK let talk more about my past life.");
+				questionasked= 0;
 			}
 			
 			if (ZombieBotMain.findKeyword(response, secretWord, 0)>=0) {
@@ -140,12 +141,6 @@ public class ZombieBotZhehao implements Topic {
 				}
 			}else if(talkingpointisfound(response))
 			{
-				if(questionasked > 4)
-				{
-					ZombieBotMain.print("Do you want to talk about my zombie life?");
-					wanttochange = true;
-					
-				}
 				if(angercount<4)
 				{
 					questionasked +=1;
@@ -160,6 +155,12 @@ public class ZombieBotZhehao implements Topic {
 			}else {
 				questionasked+=1;
 				ZombieBotMain.randomText(suggesttopic);
+				
+			}
+			if(questionasked > 4)
+			{
+				ZombieBotMain.print("Do you want to talk about my zombie life?");
+				wanttochange = true;
 				
 			}
 		
