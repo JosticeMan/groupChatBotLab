@@ -78,7 +78,7 @@ public class ZombieBotJustinY implements Topic {
 	
 	public ZombieBotJustinY() {
 		
-		String[] temp = {"Brains", "Food", "Comida"};
+		String[] temp = {"Brains", "Food", "Comida", "Foods", "Brainz", "Brain", "Brainzz", "Brainzzz"};
 		keywords = temp;
 		
 		String[] byeTemp = {"Bye", "Farewell", "Adios", "Cya", "Ciao", "Goodbye"};
