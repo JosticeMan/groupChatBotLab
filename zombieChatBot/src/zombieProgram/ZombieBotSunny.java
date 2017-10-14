@@ -131,6 +131,16 @@ public class ZombieBotSunny implements Topic {
 		{
 			ZombieBotMain.print(kkJokesAnswers[randomNum]);
 		}
+		if(stage == 2 && !(userInput.equalsIgnoreCase(kkJokes[randomNum] + " who?") || userInput.equalsIgnoreCase(kkJokes[randomNum] + " who")))
+		{
+			ZombieBotMain.print(patienceLevels[patience-1]);
+			if(patience == 1)
+			{
+				chatting = false;
+				ZombieBotMain.chatbot.startTalking();
+			}
+			patience -= 1;	
+		}
 	}
 
 	public void startChatting(String response) 
@@ -167,9 +177,7 @@ public class ZombieBotSunny implements Topic {
 			{
 				if(response.equalsIgnoreCase("no") || response.equalsIgnoreCase("nah") || topicStage >= 1)
 				{
-					int topicNum = (int) Math.random()*3;
-					ZombieBotMain.print("Lets talk about " + topicKeywords[topicNum]);
-					ZombieBotMain.chatbot.switchTopic("sunny", topicNum);
+					ZombieBotMain.print("Urrrh too bad!");
 				}
 				if(kkJokeToggle > 0.5)
 				{
@@ -178,7 +186,7 @@ public class ZombieBotSunny implements Topic {
 					if(stageNum == 3)
 					{
 						stageNum = 0;
-						randomInt = (int) (Math.random()*kkJokes.length);
+						kkRandomInt = (int) (Math.random()*kkJokes.length);
 						kkJokeToggle = Math.random();
 					}
 				}
